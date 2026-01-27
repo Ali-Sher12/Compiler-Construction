@@ -1,3 +1,5 @@
+import model
+
 class Parser:
   def __init__(self, tokens):
     self.tokens = tokens #list of tokens

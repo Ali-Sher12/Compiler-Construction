@@ -15,9 +15,6 @@ class Stmt:
 
 
 class Integer(Expr):
-  '''
-  Example: 17
-  '''
   def __init__(self, value):
     assert isinstance(value, int), value
     self.value = value
@@ -26,9 +23,6 @@ class Integer(Expr):
 
 
 class Float(Expr):
-  '''
-  Example: 3.141592
-  '''
   def __init__(self, value):
     assert isinstance(value, float), value
     self.value = value
@@ -37,9 +31,6 @@ class Float(Expr):
 
 
 class UnOp(Expr):
-  '''
-  Example: -operand
-  '''
   def __init__(self, op: token.Token, operand: Expr):
     assert isinstance(op, token.Token), op
     assert isinstance(operand, Expr), operand
@@ -50,9 +41,6 @@ class UnOp(Expr):
 
 
 class BinOp(Expr):
-  '''
-  Example: x + y
-  '''
   def __init__(self, op: token.Token, left: Expr, right: Expr):
     assert isinstance(op, token.Token), op
     assert isinstance(left, Expr), left
@@ -65,9 +53,6 @@ class BinOp(Expr):
 
 
 class Grouping(Expr):
-  '''
-  Example: ( <expr> )
-  '''
   def __init__(self, value):
     assert isinstance(value, Expr), value
     self.value = value
@@ -75,11 +60,14 @@ class Grouping(Expr):
     return f'Grouping({self.value})'
 
 
-def WhileStmt(Stmt):
-  #TODO:
-  pass
+class WhileStmt(Stmt):
+  def __init__(self):
+    pass
+  def __repr__(self):
+    pass
 
-
-def Assignment(Stmt):
-  #TODO:
-  pass
+class Assignment(Stmt):
+  def __init__(self):
+    pass
+  def __repr__(self):
+    pass
