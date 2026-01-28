@@ -51,6 +51,8 @@ TOK_PRINT      = 'TOK_PRINT'
 TOK_PRINTLN    = 'TOK_PRINTLN'
 TOK_RET        = 'TOK_RET'
 
+TOK_FINISH_NON_FUNCTIONAL        = 'TOK_FINISH_NON_FUNCTIONAL'
+
 keywords = {
   'if'      : TOK_IF,
   'else'    : TOK_ELSE,
