@@ -43,27 +43,48 @@ class Parser:
     self.curr = self.curr + 1
     return True
 
-  # integer | float | expression
+  # <primary>  ::=  <integer> | <float> | '(' <expr> ')'
   def primary(self):
-    #TODO:
-    pass
+    if self.match(token.TOK_INTEGER): return model.Integer(int(self.previous_token().lexeme))
+    if self.match(token.TOK_FLOAT): return model.Float(float(self.previous_token().lexeme))
+    if self.match(token.TOK_LPAREN):
+      expr = self.expr()
+      if (not self.match(token.TOK_RPAREN)):
+        raise SyntaxError(f'Error: ")" expected.')
+      else:
+        return model.Grouping(expr)
 
+  # <unary>  ::=  ('+'|'-'|'~') <unary>  |  <primary>
   def unary(self):
-    #TODO:
-    pass
+    if self.match(token.TOK_NOT) or self.match(token.TOK_MINUS) or self.match(token.TOK_PLUS):
+      op = self.previous_token()
+      operand = self.unary()
+      return model.UnOp(op, operand)
+    return self.primary()
 
+  # <factor>  ::=  <unary>
   def factor(self):
-    #TODO:
-    pass
+    return self.unary()
 
+  # <term>  ::=  <factor> ( ('*'|'/') <factor> )*
   def term(self):
-    #TODO:
-    pass
+    expr = self.factor()
+    while self.match(token.TOK_STAR) or self.match(token.TOK_SLASH):
+      op = self.previous_token()
+      right = self.factor()
+      expr = model.BinOp(op, expr, right)
+    return expr
 
+  # <expr>  ::=  <term> ( ('+'|'-') <term> )*
   def expr(self):
-    #TODO:
-    pass
+    expr = self.term()
+    while self.match(token.TOK_PLUS) or self.match(token.TOK_MINUS):
+      op = self.previous_token()
+      right = self.term()
+      expr = model.BinOp(op, expr, right)
+    return expr
 
   def parse(self):
     ast = self.expr()
     return ast
+  
