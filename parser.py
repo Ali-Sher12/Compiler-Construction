@@ -7,15 +7,11 @@ class Parser:
     self.curr = 0
 
   def advance(self):
-    if self.curr >= len(self.tokens):
-      return token.TOK_FINISH_NON_FUNCTIONAL
     token_ = self.tokens[self.curr]
     self.curr = self.curr + 1
     return token_
 
   def peek(self):
-    if self.curr >= len(self.tokens):
-      return token.TOK_FINISH_NON_FUNCTIONAL
     return self.tokens[self.curr]    
 
   def is_next(self,expected_type):
@@ -33,8 +29,6 @@ class Parser:
       raise SyntaxError(f'Expected {expected_type!r}, got {self.tekens[self.curr].lexeme!r}.')
 
   def previous_token(self):
-    if self.curr - 1 < 0:
-      return token.TOK_FINISH_NON_FUNCTIONAL    
     return self.tokens[self.curr-1]
 
   def match(self,expected_type):

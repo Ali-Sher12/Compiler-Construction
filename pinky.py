@@ -12,4 +12,4 @@ if __name__ == "__main__":
         tokens = lexer.Lexer(source).tokenise()
         for i in tokens : print(i)
         ast = parser.Parser(tokens).parse()
-#        print(ast)
+        print(ast)
