@@ -34,4 +34,4 @@ if __name__ == "__main__":
         tokens = lexer.Lexer(source).tokenise()
         for i in tokens : print(i)
         ast = parser.Parser(tokens).parse()
-        print(print_pretty_ast(ast))
+        print_pretty_ast(ast)
