@@ -1,10 +1,11 @@
-##345678901234567890123456789
+##345678901234567890123456789 counting columns, ignore this comment
  ali man if 1+23 0.233
  Ali
- if(shahmeer == "nigger")
+ if(shahmeer == "human")
  ## sdsdsd
  12.2E-34
   12.2E34
+    12.2E 34 ElsE ConDItion
   A2___________________________
  #* sdsdsd
 

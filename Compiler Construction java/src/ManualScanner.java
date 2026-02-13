@@ -13,9 +13,11 @@ public class ManualScanner
     ArrayList<Token> Tokens_List;
     String source;
     boolean error_found = false;
+    ErrorHandler err;
 
     ManualScanner()
     {
+        err = new ErrorHandler();
         Tokens_List = new ArrayList<Token>();
         Tokens_Dict = new TokenType();
         try
@@ -31,13 +33,13 @@ public class ManualScanner
 
     boolean Identifier_Eligibility(){
         if(is_lowercase(source.charAt(start))){
-            System.out.println("SyntaxError Identifier must begin with uppercase letter. "+source.substring(start,curr));
+            err.Iden_FirstChar(source.substring(start,curr),line,column-(curr-start));
             error_found = true;
             return false;
         }
         if((curr-start) > 30)
         {
-            System.out.println("SyntaxError Identifier length too long. "+source.substring(start,curr));
+            err.Iden_Overflow(source.substring(start,curr),line,column-(curr-start));
             error_found = true;
             return false;
         }
@@ -49,8 +51,6 @@ public class ManualScanner
             return Tokens_Dict.token_map.get(lexeme.toLowerCase());
         if(Identifier_Eligibility())
             return Tokens_Dict.TOK_IDENTIFIER;
-
-        System.out.println("SyntaxError Substring neither keyword nor identifier. "+source.substring(start,curr));
         return Tokens_Dict.NOT_A_TOKEN;
     }
 
@@ -103,6 +103,7 @@ public class ManualScanner
 
     void tokenise(){
         while (curr < source.length()) {
+            error_found = false;
             start = curr;
             char ch = advance();
             if(ch =='\0') return;
@@ -123,19 +124,21 @@ public class ManualScanner
                             return;
                         advance();
                     }
+                    if(peek() != '\n')line+=1;
                 }
                 else if( peek() == '*' ){
                     advance();
                     while (!(peek() == '*' && lookahead() == '#')){
                         if (peek() == '\0') {
-                            System.out.println("SyntaxError Multi-line comments not properly closed (* missing). Line "+line);
+                            err.Comm_MultiLine(line);
                             return;
                         }
+                        else if (peek() == '\n') line+=1;
                         advance();
                     }
                     advance(); advance();
                 }
-                else System.out.println("SyntaxError Single-line comments not properly closed. Line "+line);
+                err.Comm_SingleLine(line);
             }
             else if (ch =='(') add_token(Tokens_Dict.TOK_LPAREN);
             else if (ch ==')') add_token(Tokens_Dict.TOK_RPAREN);
@@ -213,7 +216,7 @@ public class ManualScanner
                     }
                     else if (peek() == '.' && !is_digit (lookahead())) {
                         error_found = true;
-                        System.out.println("SyntaxError Nothing after decimal point. "+line);
+                        err.Float_PointError(source.substring(start,curr),line,column-(curr-start));
                     }
                     else if(!exponent_condition_helper())
                     {
@@ -245,7 +248,7 @@ public class ManualScanner
                         }
                     }
                     else if (peek() == '.' && !is_digit (lookahead())) {
-                        System.out.println("SyntaxError Nothing after decimal point. "+line);
+                        err.Float_PointError(source.substring(start,curr),line,column-(curr-start));
                         error_found = true;
                     }
                     else if(!exponent_condition_helper())
@@ -282,7 +285,7 @@ public class ManualScanner
             else if (ch =='\'') {
                 advance();
                 if (peek() != '\''){
-                    System.out.println("Syntax error Invalid char at line  "+ line);
+                    err.Char_Error(line,column-(curr-start));
                     error_found = true;                }
                 else{
                     advance();
@@ -301,8 +304,9 @@ public class ManualScanner
                     add_token(Tokens_Dict.TOK_STRING);
                 }
                 else{
-                    System.out.println("Syntax error  Unclosed string at line  "+ line);
-                    error_found = true;                }
+                    err.String_UnclosedError(line,column-(curr-start));
+                    error_found = true;
+                }
             }
 
             else if (is_digit(ch)) {
@@ -318,7 +322,7 @@ public class ManualScanner
                     }
                 }
                 else if (peek() == '.' && !is_digit (lookahead())) {
-                    System.out.println("SyntaxError Nothing after decimal point. "+line);
+                    err.Float_PointError(source.substring(start,curr),line,column-(curr-start));
                     error_found = true;
                 }
                 else if(!exponent_condition_helper()) {
@@ -344,7 +348,7 @@ public class ManualScanner
             if (peek() == '+' || peek() == '-') {
                 advance();
                 if (!is_digit(peek())) {
-                    System.out.println("SyntaxError Exponent is invalid. "+line);
+                    err.Exponent_E(line,column-(curr-start));
                     error_found = true;
                 }
                 while (is_digit(peek()))
@@ -357,7 +361,7 @@ public class ManualScanner
                 add_token(Tokens_Dict.TOK_FLOAT);                        }
 
             else{
-                System.out.println("SyntaxError Exponent is invalid. "+line);
+                err.Exponent_E(line,column-(curr-start));
                 error_found = true;
             }
             return true;
