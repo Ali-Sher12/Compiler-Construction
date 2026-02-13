@@ -15,7 +15,6 @@ public class ManualScanner
     boolean error_found = false;
     ErrorHandler err;
     SymbolTable symbols;
-    int multi_current = 0;
 
     ArrayList<Integer> SingleComm_List;
     ArrayList<ArrayList<Integer>> MultiComm_List;
@@ -120,7 +119,7 @@ public class ManualScanner
             char ch = advance();
             if(ch =='\0') return;
             if(ch =='\n'){
-                line = line + 1;
+                line+=1;
                 column = 1;
             }
             else if (ch == '\t') {
@@ -139,6 +138,8 @@ public class ManualScanner
                     }
                     if(peek() == '\n'){
                         line+=1;
+                        column = 1;
+                        advance();
                     }
                 }
                 else if( peek() == '*' ){
@@ -146,7 +147,6 @@ public class ManualScanner
                     ArrayList<Integer> temp_storage = new ArrayList<>();
                     temp_storage.add(line);
                     temp_storage.add(1);
-                    multi_current+=1;
                     while (!(peek() == '*' && lookahead() == '#')){
                         if (peek() == '\0') {
                             err.Comm_MultiLine(line);
@@ -154,6 +154,7 @@ public class ManualScanner
                         }
                         else if (peek() == '\n') {
                             temp_storage.set(1, temp_storage.get(1) + 1);
+                            column = 1;
                             line+=1;
                         }
                         advance();
