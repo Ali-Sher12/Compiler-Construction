@@ -14,10 +14,12 @@ public class ManualScanner
     String source;
     boolean error_found = false;
     ErrorHandler err;
+    SymbolTable symbols;
 
     ManualScanner()
     {
         err = new ErrorHandler();
+        symbols = new SymbolTable();
         Tokens_List = new ArrayList<Token>();
         Tokens_Dict = new TokenType();
         try
@@ -69,12 +71,15 @@ public class ManualScanner
 
     void add_token(String input_type){
         // add validations using input_type
-        if(Objects.equals(input_type, Tokens_Dict.TOK_IDENTIFIER)){
-            Identifier_Eligibility();
-        }
+        if(Objects.equals(input_type, Tokens_Dict.TOK_IDENTIFIER) && !Identifier_Eligibility()) return;
         else if(Objects.equals(input_type, Tokens_Dict.NOT_A_TOKEN)) return;
+
         Token tempToken = new Token(input_type, source.substring(start, curr),line,column-(curr-start));
         Tokens_List.add(tempToken);
+
+        if(Tokens_Dict.token_map.containsKey(source.substring(start, curr).toLowerCase()))
+            symbols.add(tempToken.Lexeme.toLowerCase());
+        else symbols.add(tempToken.Lexeme);
     }
 
     char peek(){
@@ -138,7 +143,7 @@ public class ManualScanner
                     }
                     advance(); advance();
                 }
-                err.Comm_SingleLine(line);
+                else err.Comm_SingleLine(line);
             }
             else if (ch =='(') add_token(Tokens_Dict.TOK_LPAREN);
             else if (ch ==')') add_token(Tokens_Dict.TOK_RPAREN);
@@ -375,6 +380,7 @@ public class ManualScanner
         {
             Tokens_List.get(i).print();
         }
+        System.out.println(symbols.symbol_map.toString());
     }
 
 }
