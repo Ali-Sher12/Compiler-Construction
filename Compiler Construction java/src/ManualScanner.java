@@ -9,6 +9,7 @@ public class ManualScanner
     int line = 1;
     int start = 0;
     int curr = 0;
+    int column = 1;
     ArrayList<Token> Tokens_List;
     String source;
     boolean error_found = false;
@@ -60,6 +61,7 @@ public class ManualScanner
     char advance(){
         if(curr >= source.length())
             return '\0';
+        column+=1;
         char ch = source.charAt(curr);
         curr += 1;
         return ch;
@@ -71,7 +73,7 @@ public class ManualScanner
             Identifier_Eligibility();
         }
         else if(Objects.equals(input_type, Tokens_Dict.NOT_A_TOKEN)) return;
-        Token tempToken = new Token(input_type, source.substring(start, curr),line,start);
+        Token tempToken = new Token(input_type, source.substring(start, curr),line,column-(curr-start));
         Tokens_List.add(tempToken);
     }
 
@@ -104,9 +106,14 @@ public class ManualScanner
             start = curr;
             char ch = advance();
             if(ch =='\0') return;
-            if(ch =='\n')
+            if(ch =='\n'){
                 line = line + 1;
-            else if (ch == '\t') continue;
+                column = 1;
+            }
+            else if (ch == '\t') {
+                column+=3;
+                continue;
+            }
             else if (ch == '\r') continue;
             else if (ch ==' ') continue;
             else if (ch == '#'){
@@ -126,11 +133,9 @@ public class ManualScanner
                         }
                         advance();
                     }
-                    advance();
-                    advance();
+                    advance(); advance();
                 }
                 else System.out.println("SyntaxError Single-line comments not properly closed. Line "+line);
-
             }
             else if (ch =='(') add_token(Tokens_Dict.TOK_LPAREN);
             else if (ch ==')') add_token(Tokens_Dict.TOK_RPAREN);
@@ -366,7 +371,6 @@ public class ManualScanner
         {
             Tokens_List.get(i).print();
         }
-
     }
 
 }
