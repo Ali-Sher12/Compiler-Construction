@@ -15,13 +15,20 @@ public class ManualScanner
     boolean error_found = false;
     ErrorHandler err;
     SymbolTable symbols;
+    int multi_current = 0;
+
+    ArrayList<Integer> SingleComm_List;
+    ArrayList<ArrayList<Integer>> MultiComm_List;
 
     ManualScanner()
     {
         err = new ErrorHandler();
         symbols = new SymbolTable();
-        Tokens_List = new ArrayList<Token>();
         Tokens_Dict = new TokenType();
+        Tokens_List = new ArrayList<Token>();
+        SingleComm_List = new ArrayList<Integer>();
+        MultiComm_List = new ArrayList<ArrayList<Integer>>();
+
         try
         {
             Path path = Path.of("/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/src/input.txt");
@@ -124,28 +131,44 @@ public class ManualScanner
             else if (ch ==' ') continue;
             else if (ch == '#'){
                 if( peek() == '#' ){
+                    SingleComm_List.add(line);
                     while (peek() != '\n'){
                         if (peek() == '\0')
                             return;
                         advance();
                     }
-                    if(peek() != '\n')line+=1;
+                    if(peek() == '\n'){
+                        line+=1;
+                    }
                 }
                 else if( peek() == '*' ){
                     advance();
+                    ArrayList<Integer> temp_storage = new ArrayList<>();
+                    temp_storage.add(line);
+                    temp_storage.add(1);
+                    multi_current+=1;
                     while (!(peek() == '*' && lookahead() == '#')){
                         if (peek() == '\0') {
                             err.Comm_MultiLine(line);
                             return;
                         }
-                        else if (peek() == '\n') line+=1;
+                        else if (peek() == '\n') {
+                            temp_storage.set(1, temp_storage.get(1) + 1);
+                            line+=1;
+                        }
                         advance();
                     }
+                    MultiComm_List.add(temp_storage);
                     advance(); advance();
                 }
                 else err.Comm_SingleLine(line);
+
             }
             else if (ch =='(') add_token(Tokens_Dict.TOK_LPAREN);
+            else if (ch =='$' || ch =='@') {
+                err.Invalid_Char(source.substring(start,curr),line,column-(curr-start));
+                continue;
+            }
             else if (ch ==')') add_token(Tokens_Dict.TOK_RPAREN);
             else if (ch =='{') add_token(Tokens_Dict.TOK_LCURLY);
             else if (ch =='}') add_token(Tokens_Dict.TOK_RCURLY);
@@ -376,11 +399,36 @@ public class ManualScanner
 
     void printList()
     {
+        System.out.println("\n-----------------------------------------\n");
+
         for (int i=0;i<Tokens_List.size();i++)
         {
             Tokens_List.get(i).print();
         }
+        System.out.println("\n-----------------------------------------\nStats: ");
+
+        System.out.println("Total Tokens: "+Tokens_List.size()+" | Total Lines: "+line);
+
+        System.out.println("\n-----------------------------------------\n");
+
+        System.out.println("Singleline comments: "+SingleComm_List.size()+ " lines.");
+        for (int i=0;i<SingleComm_List.size();i++)
+        {
+            System.out.println("Comment "+(i+1)+": | Line# "+SingleComm_List.get(i));
+        }
+
+        System.out.println("\n-----------------------------------------\n");
+
+        System.out.println("Multiline comments: "+MultiComm_List.size()+ " blocks.");
+        for (int i=0;i<MultiComm_List.size();i++)
+        {
+           System.out.println("Block "+(i+1)+": | Line# "+MultiComm_List.get(i).get(0)+" | Block Size: "+MultiComm_List.get(i).get(1));
+        }
+
+        System.out.println("\n-----------------------------------------\n");
+
         System.out.println(symbols.symbol_map.toString());
+        System.out.println("\n-----------------------------------------\n");
     }
 
 }

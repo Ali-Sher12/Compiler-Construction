@@ -32,4 +32,7 @@ public class ErrorHandler {
         System.out.println("SyntaxError: Invalid Exponent Syntax. line: "+line+" | Column: "+column);
     }
 
+    void Invalid_Char(String lexeme, int line, int column) {
+        System.out.println("SyntaxError: Unknown Symbol Found. ["+lexeme+"] | line: "+line+" | Column: "+column);
+    }
 }
