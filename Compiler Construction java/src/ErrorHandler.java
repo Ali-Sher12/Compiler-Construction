@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+
 public class ErrorHandler {
 
     void Iden_Overflow(String lexeme, int line, int column) {

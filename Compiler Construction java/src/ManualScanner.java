@@ -1,4 +1,3 @@
-import javax.sound.sampled.Line;
 import java.io.*;
 import java.util.*;
 import java.nio.file.*;
@@ -312,11 +311,23 @@ public class ManualScanner
             }
 
             else if (ch =='\'') {
-                advance();
-                if (peek() != '\''){
+                ch = advance();
+                if (ch == '\\'){
+                    advance();
+                    if(peek() != '\''){
+                        err.Char_Error(line,column-(curr-start));
+                        error_found = true;
+                    }
+                    else {
+                        advance();
+                        add_token(Tokens_Dict.TOK_CHAR);
+                    }
+                }
+                else if(peek() != '\''){
                     err.Char_Error(line,column-(curr-start));
-                    error_found = true;                }
-                else{
+                    error_found = true;
+                }
+                else {
                     advance();
                     add_token(Tokens_Dict.TOK_CHAR);
                 }
