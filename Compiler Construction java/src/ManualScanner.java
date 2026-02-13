@@ -251,8 +251,8 @@ public class ManualScanner
                     {
                         add_token(Tokens_Dict.TOK_INTEGER);
                     }
-                    else add_token(Tokens_Dict.TOK_MINUS);
                 }
+                else add_token(Tokens_Dict.TOK_MINUS);
             }
 
             else if (ch =='+') {

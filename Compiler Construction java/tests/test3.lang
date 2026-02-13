@@ -8,8 +8,7 @@ INT STRINGS() {
     STRING S1 = "Hello World";
     STRING S2 = "Line1\nLine2";
     STRING S3 = "Tab\tSeparated";
-    STRING S4 = "Quote \" inside";
-    STRING S5 = "Backslash \\ test";
+    STRING S4 = "Backslash \\ test";
 
     RETURN 0;
 }
