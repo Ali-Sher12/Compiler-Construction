@@ -1,0 +1,722 @@
+
+
+		 <<<<<<<<<<<<<<<<<  Test1 >>>>>>>>>>>>>>>>:
+
+
+-----------------------------------------
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 1 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: MAIN | Line: 1 | Column: 5
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 1 | Column: 9
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 1 | Column: 10
+
+Token type: TOK_LCURLY | Lexeme: { | Line: 1 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 2 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 2 | Column: 9
+
+Token type: TOK_EQ | Lexeme: = | Line: 2 | Column: 11
+
+Token type: TOK_INTEGER | Lexeme: 10 | Line: 2 | Column: 13
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 2 | Column: 15
+
+Token type: TOK_IDENTIFIER | Lexeme: FLOAT | Line: 3 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: B | Line: 3 | Column: 11
+
+Token type: TOK_EQ | Lexeme: = | Line: 3 | Column: 13
+
+Token type: TOK_FLOAT | Lexeme: 3.14 | Line: 3 | Column: 15
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 3 | Column: 19
+
+Token type: TOK_IDENTIFIER | Lexeme: FLOAT | Line: 4 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: C | Line: 4 | Column: 11
+
+Token type: TOK_EQ | Lexeme: = | Line: 4 | Column: 13
+
+Token type: TOK_FLOAT | Lexeme: 2.5e+10 | Line: 4 | Column: 15
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 4 | Column: 22
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 5 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: D | Line: 5 | Column: 10
+
+Token type: TOK_EQ | Lexeme: = | Line: 5 | Column: 12
+
+Token type: TOK_CHAR | Lexeme: 'X' | Line: 5 | Column: 14
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 5 | Column: 17
+
+Token type: TOK_IDENTIFIER | Lexeme: STRING | Line: 6 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: S | Line: 6 | Column: 12
+
+Token type: TOK_EQ | Lexeme: = | Line: 6 | Column: 14
+
+Token type: TOK_STRING | Lexeme: "HELLO" | Line: 6 | Column: 16
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 6 | Column: 23
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 8 | Column: 5
+
+Token type: TOK_EQ | Lexeme: = | Line: 8 | Column: 7
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 8 | Column: 9
+
+Token type: TOK_PLUS | Lexeme: + | Line: 8 | Column: 11
+
+Token type: TOK_INTEGER | Lexeme: 1 | Line: 8 | Column: 13
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 8 | Column: 14
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 9 | Column: 5
+
+Token type: TOK_ASSIGN | Lexeme: ++ | Line: 9 | Column: 6
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 9 | Column: 8
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 10 | Column: 5
+
+Token type: TOK_ASSIGN | Lexeme: -- | Line: 10 | Column: 6
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 10 | Column: 8
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 11 | Column: 5
+
+Token type: TOK_ASSIGN | Lexeme: += | Line: 11 | Column: 7
+
+Token type: TOK_INTEGER | Lexeme: 5 | Line: 11 | Column: 10
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 11 | Column: 11
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 12 | Column: 5
+
+Token type: TOK_ASSIGN | Lexeme: -= | Line: 12 | Column: 7
+
+Token type: TOK_INTEGER | Lexeme: 3 | Line: 12 | Column: 10
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 12 | Column: 11
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 13 | Column: 5
+
+Token type: TOK_ASSIGN | Lexeme: *= | Line: 13 | Column: 7
+
+Token type: TOK_INTEGER | Lexeme: 2 | Line: 13 | Column: 10
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 13 | Column: 11
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 14 | Column: 5
+
+Token type: TOK_ASSIGN | Lexeme: /= | Line: 14 | Column: 7
+
+Token type: TOK_INTEGER | Lexeme: 4 | Line: 14 | Column: 10
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 14 | Column: 11
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 15 | Column: 5
+
+Token type: TOK_MOD | Lexeme: % | Line: 15 | Column: 7
+
+Token type: TOK_EQ | Lexeme: = | Line: 15 | Column: 8
+
+Token type: TOK_INTEGER | Lexeme: 2 | Line: 15 | Column: 10
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 15 | Column: 11
+
+Token type: TOK_IDENTIFIER | Lexeme: IF | Line: 17 | Column: 5
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 17 | Column: 8
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 17 | Column: 9
+
+Token type: TOK_EQEQ | Lexeme: == | Line: 17 | Column: 11
+
+Token type: TOK_INTEGER | Lexeme: 10 | Line: 17 | Column: 14
+
+Token type: TOK_LOGICALAND | Lexeme: && | Line: 17 | Column: 17
+
+Token type: TOK_IDENTIFIER | Lexeme: B | Line: 17 | Column: 20
+
+Token type: TOK_NE | Lexeme: != | Line: 17 | Column: 22
+
+Token type: TOK_INTEGER | Lexeme: 0 | Line: 17 | Column: 25
+
+Token type: TOK_LOGICALOR | Lexeme: || | Line: 17 | Column: 27
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 17 | Column: 30
+
+Token type: TOK_LT | Lexeme: < | Line: 17 | Column: 32
+
+Token type: TOK_INTEGER | Lexeme: 100 | Line: 17 | Column: 34
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 17 | Column: 37
+
+Token type: TOK_LCURLY | Lexeme: { | Line: 17 | Column: 39
+
+Token type: TOK_IDENTIFIER | Lexeme: PRINT | Line: 18 | Column: 9
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 18 | Column: 14
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 18 | Column: 15
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 18 | Column: 16
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 18 | Column: 17
+
+Token type: TOK_RCURLY | Lexeme: } | Line: 19 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: WHILE | Line: 21 | Column: 5
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 21 | Column: 11
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 21 | Column: 12
+
+Token type: TOK_GE | Lexeme: >= | Line: 21 | Column: 14
+
+Token type: TOK_INTEGER | Lexeme: 0 | Line: 21 | Column: 17
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 21 | Column: 18
+
+Token type: TOK_LCURLY | Lexeme: { | Line: 21 | Column: 20
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 22 | Column: 9
+
+Token type: TOK_EQ | Lexeme: = | Line: 22 | Column: 11
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 22 | Column: 13
+
+Token type: TOK_INTEGER | Lexeme: 1 | Line: 22 | Column: 17
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 22 | Column: 18
+
+Token type: TOK_RCURLY | Lexeme: } | Line: 23 | Column: 5
+
+Token type: TOK_RETURN | Lexeme: RETURN | Line: 25 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 25 | Column: 12
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 25 | Column: 13
+
+Token type: TOK_RCURLY | Lexeme: } | Line: 26 | Column: 1
+
+
+-----------------------------------------
+Stats: 
+Total Tokens: 101 | Total Lines: 28
+
+-----------------------------------------
+
+Singleline comments: 0 lines.
+
+-----------------------------------------
+
+Multiline comments: 0 blocks.
+
+-----------------------------------------
+
+{&&=1, ||=1, PRINT=1, A=17, FLOAT=2, B=2, C=1, D=1, CHAR=1, INT=2, S=1, *==1, MAIN=1, IF=1, 10=2, ++=1, --=1, ===1, %=1, (=4, )=4, 3.14=1, +=1, /==1, -==1, 0=2, 2.5e+10=1, 1=2, 100=1, "HELLO"=1, +==1, 2=2, 3=1, 4=1, 5=1, 'X'=1, STRING=1, WHILE=1, {=3, ;=16, !==1, <=1, ==8, }=3, return=1, >==1}
+
+-----------------------------------------
+
+
+
+		 <<<<<<<<<<<<<<<<<  Test2 >>>>>>>>>>>>>>>>:
+
+
+-----------------------------------------
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 1 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: COMPUTE | Line: 1 | Column: 5
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 1 | Column: 12
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 1 | Column: 13
+
+Token type: TOK_LCURLY | Lexeme: { | Line: 1 | Column: 15
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 2 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: X | Line: 2 | Column: 9
+
+Token type: TOK_EQ | Lexeme: = | Line: 2 | Column: 11
+
+Token type: TOK_INTEGER | Lexeme: 10 | Line: 2 | Column: 13
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 2 | Column: 15
+
+Token type: TOK_IDENTIFIER | Lexeme: FLOAT | Line: 3 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: Y | Line: 3 | Column: 11
+
+Token type: TOK_EQ | Lexeme: = | Line: 3 | Column: 13
+
+Token type: TOK_FLOAT | Lexeme: 5.5 | Line: 3 | Column: 15
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 3 | Column: 18
+
+Token type: TOK_IDENTIFIER | Lexeme: FLOAT | Line: 4 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: Z | Line: 4 | Column: 11
+
+Token type: TOK_EQ | Lexeme: = | Line: 4 | Column: 13
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 4 | Column: 15
+
+Token type: TOK_IDENTIFIER | Lexeme: X | Line: 4 | Column: 16
+
+Token type: TOK_STAR | Lexeme: * | Line: 4 | Column: 18
+
+Token type: TOK_IDENTIFIER | Lexeme: Y | Line: 4 | Column: 20
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 4 | Column: 21
+
+Token type: TOK_PLUS | Lexeme: + | Line: 4 | Column: 23
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 4 | Column: 25
+
+Token type: TOK_IDENTIFIER | Lexeme: X | Line: 4 | Column: 26
+
+Token type: TOK_DIV | Lexeme: / | Line: 4 | Column: 28
+
+Token type: TOK_FLOAT | Lexeme: 2.0 | Line: 4 | Column: 30
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 4 | Column: 33
+
+Token type: TOK_FLOAT | Lexeme: 3.5e-2 | Line: 4 | Column: 37
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 4 | Column: 43
+
+Token type: TOK_IDENTIFIER | Lexeme: IF | Line: 6 | Column: 5
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 6 | Column: 8
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 6 | Column: 9
+
+Token type: TOK_IDENTIFIER | Lexeme: X | Line: 6 | Column: 10
+
+Token type: TOK_GT | Lexeme: > | Line: 6 | Column: 12
+
+Token type: TOK_INTEGER | Lexeme: 5 | Line: 6 | Column: 14
+
+Token type: TOK_LOGICALAND | Lexeme: && | Line: 6 | Column: 16
+
+Token type: TOK_IDENTIFIER | Lexeme: Y | Line: 6 | Column: 19
+
+Token type: TOK_LE | Lexeme: <= | Line: 6 | Column: 21
+
+Token type: TOK_FLOAT | Lexeme: 10.0 | Line: 6 | Column: 24
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 6 | Column: 28
+
+Token type: TOK_LOGICALOR | Lexeme: || | Line: 6 | Column: 30
+
+Token type: TOK_NOT | Lexeme: ! | Line: 6 | Column: 33
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 6 | Column: 34
+
+Token type: TOK_IDENTIFIER | Lexeme: Z | Line: 6 | Column: 35
+
+Token type: TOK_EQEQ | Lexeme: == | Line: 6 | Column: 37
+
+Token type: TOK_INTEGER | Lexeme: 0 | Line: 6 | Column: 40
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 6 | Column: 41
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 6 | Column: 42
+
+Token type: TOK_LCURLY | Lexeme: { | Line: 6 | Column: 44
+
+Token type: TOK_IDENTIFIER | Lexeme: X | Line: 7 | Column: 9
+
+Token type: TOK_EQ | Lexeme: = | Line: 7 | Column: 11
+
+Token type: TOK_IDENTIFIER | Lexeme: X | Line: 7 | Column: 13
+
+Token type: TOK_STAR | Lexeme: * | Line: 7 | Column: 15
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 7 | Column: 17
+
+Token type: TOK_IDENTIFIER | Lexeme: Y | Line: 7 | Column: 18
+
+Token type: TOK_PLUS | Lexeme: + | Line: 7 | Column: 20
+
+Token type: TOK_INTEGER | Lexeme: 3 | Line: 7 | Column: 22
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 7 | Column: 23
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 7 | Column: 27
+
+Token type: TOK_IDENTIFIER | Lexeme: Z | Line: 7 | Column: 28
+
+Token type: TOK_DIV | Lexeme: / | Line: 7 | Column: 30
+
+Token type: TOK_INTEGER | Lexeme: 2 | Line: 7 | Column: 32
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 7 | Column: 33
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 7 | Column: 34
+
+Token type: TOK_RCURLY | Lexeme: } | Line: 8 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: RESULT | Line: 10 | Column: 5
+
+Token type: TOK_EQ | Lexeme: = | Line: 10 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: X | Line: 10 | Column: 14
+
+Token type: TOK_EXPONENT | Lexeme: ** | Line: 10 | Column: 16
+
+Token type: TOK_INTEGER | Lexeme: 2 | Line: 10 | Column: 19
+
+Token type: TOK_PLUS | Lexeme: + | Line: 10 | Column: 21
+
+Token type: TOK_IDENTIFIER | Lexeme: Y | Line: 10 | Column: 23
+
+Token type: TOK_LOGICALXOR | Lexeme: ^ | Line: 10 | Column: 25
+
+Token type: TOK_INTEGER | Lexeme: 3 | Line: 10 | Column: 27
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 10 | Column: 28
+
+Token type: TOK_RETURN | Lexeme: RETURN | Line: 11 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: RESULT | Line: 11 | Column: 12
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 11 | Column: 18
+
+Token type: TOK_RCURLY | Lexeme: } | Line: 12 | Column: 1
+
+
+-----------------------------------------
+Stats: 
+Total Tokens: 81 | Total Lines: 14
+
+-----------------------------------------
+
+Singleline comments: 0 lines.
+
+-----------------------------------------
+
+Multiline comments: 0 blocks.
+
+-----------------------------------------
+
+{&&=1, ||=1, **=1, <==1, FLOAT=2, INT=2, X=7, Y=5, Z=3, IF=1, ^=1, 10=1, ===1, !=1, COMPUTE=1, (=8, )=8, *=2, +=3, /=2, 0=1, 2=2, 3=2, 2.0=1, 5=1, 10.0=1, 3.5e-2=1, {=2, ;=6, 5.5=1, ==5, }=2, RESULT=2, >=1, return=1}
+
+-----------------------------------------
+
+
+
+		 <<<<<<<<<<<<<<<<<  Test3 >>>>>>>>>>>>>>>>:
+
+SyntaxError: Invalid char. line: 3 | Column: 14
+SyntaxError: Identifier must begin with an uppercase letter. [n] | line: 3 | Column: 16
+SyntaxError: Invalid char. line: 3 | Column: 17
+SyntaxError: Invalid char. line: 4 | Column: 14
+SyntaxError: Identifier must begin with an uppercase letter. [t] | line: 4 | Column: 16
+SyntaxError: Invalid char. line: 4 | Column: 17
+SyntaxError: Invalid char. line: 5 | Column: 17
+SyntaxError: Invalid char. line: 6 | Column: 14
+SyntaxError: Invalid char. line: 6 | Column: 17
+SyntaxError: Identifier must begin with an uppercase letter. [inside] | line: 11 | Column: 27
+SyntaxError: Identifier must begin with an uppercase letter. [test] | line: 11 | Column: 66
+SyntaxError: Unclosed String. line: 11 | Column: 70
+
+-----------------------------------------
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 1 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: STRINGS | Line: 1 | Column: 5
+
+Token type: TOK_LPAREN | Lexeme: ( | Line: 1 | Column: 12
+
+Token type: TOK_RPAREN | Lexeme: ) | Line: 1 | Column: 13
+
+Token type: TOK_LCURLY | Lexeme: { | Line: 1 | Column: 15
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 2 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 2 | Column: 10
+
+Token type: TOK_EQ | Lexeme: = | Line: 2 | Column: 12
+
+Token type: TOK_CHAR | Lexeme: 'A' | Line: 2 | Column: 14
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 2 | Column: 17
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 3 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: B | Line: 3 | Column: 10
+
+Token type: TOK_EQ | Lexeme: = | Line: 3 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 4 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: C | Line: 4 | Column: 10
+
+Token type: TOK_EQ | Lexeme: = | Line: 4 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 5 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: D | Line: 5 | Column: 10
+
+Token type: TOK_EQ | Lexeme: = | Line: 5 | Column: 12
+
+Token type: TOK_CHAR | Lexeme: '\' | Line: 5 | Column: 14
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 6 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: E | Line: 6 | Column: 10
+
+Token type: TOK_EQ | Lexeme: = | Line: 6 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: STRING | Line: 8 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: S1 | Line: 8 | Column: 12
+
+Token type: TOK_EQ | Lexeme: = | Line: 8 | Column: 15
+
+Token type: TOK_STRING | Lexeme: "Hello World" | Line: 8 | Column: 17
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 8 | Column: 30
+
+Token type: TOK_IDENTIFIER | Lexeme: STRING | Line: 9 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: S2 | Line: 9 | Column: 12
+
+Token type: TOK_EQ | Lexeme: = | Line: 9 | Column: 15
+
+Token type: TOK_STRING | Lexeme: "Line1\nLine2" | Line: 9 | Column: 17
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 9 | Column: 31
+
+Token type: TOK_IDENTIFIER | Lexeme: STRING | Line: 10 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: S3 | Line: 10 | Column: 12
+
+Token type: TOK_EQ | Lexeme: = | Line: 10 | Column: 15
+
+Token type: TOK_STRING | Lexeme: "Tab\tSeparated" | Line: 10 | Column: 17
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 10 | Column: 33
+
+Token type: TOK_IDENTIFIER | Lexeme: STRING | Line: 11 | Column: 5
+
+Token type: TOK_IDENTIFIER | Lexeme: S4 | Line: 11 | Column: 12
+
+Token type: TOK_EQ | Lexeme: = | Line: 11 | Column: 15
+
+Token type: TOK_STRING | Lexeme: "Quote \" | Line: 11 | Column: 17
+
+Token type: TOK_STRING | Lexeme: ";
+    STRING S5 = " | Line: 11 | Column: 33
+
+Token type: TOK_IDENTIFIER | Lexeme: Backslash | Line: 11 | Column: 53
+
+
+-----------------------------------------
+Stats: 
+Total Tokens: 44 | Total Lines: 11
+
+-----------------------------------------
+
+Singleline comments: 0 lines.
+
+-----------------------------------------
+
+Multiline comments: 0 blocks.
+
+-----------------------------------------
+
+{STRINGS=1, S3=1, A=1, "Tab\tSeparated"=1, S4=1, B=1, C=1, D=1, E=1, "Line1\nLine2"=1, CHAR=5, Backslash=1, INT=1, "Hello World"=1, ";
+    STRING S5 = "=1, "Quote \"=1, (=1, )=1, 'A'=1, '\'=1, STRING=4, {=1, ;=4, ==9, S1=1, S2=1}
+
+-----------------------------------------
+
+
+
+		 <<<<<<<<<<<<<<<<<  Test4 >>>>>>>>>>>>>>>>:
+
+SyntaxError: Identifier must begin with an uppercase letter. [int] | line: 1 | Column: 1
+SyntaxError: Identifier must begin with an uppercase letter. [invalidStart] | line: 1 | Column: 5
+SyntaxError: Identifier must have char_size <= 31. [VERYLONGIDENTIFIERNAMEEXCEEDINGTHIRTYCHARACTERS123] | line: 3 | Column: 5
+SyntaxError: Invalid float. [10] | line: 5 | Column: 9
+SyntaxError: Invalid float. [2] | line: 6 | Column: 11
+SyntaxError: Identifier must begin with an uppercase letter. [e] | line: 6 | Column: 13
+SyntaxError: Invalid Exponent Syntax. line: 7 | Column: 11
+SyntaxError: Invalid char. line: 9 | Column: 10
+SyntaxError: Invalid char. line: 9 | Column: 13
+SyntaxError: Invalid char. line: 10 | Column: 10
+SyntaxError: Identifier must begin with an uppercase letter. [bad] | line: 12 | Column: 51
+SyntaxError: Identifier must begin with an uppercase letter. [string] | line: 12 | Column: 55
+SyntaxError: Unknown Symbol Found. [$] | line: 14 | Column: 1
+SyntaxError: Identifier must begin with an uppercase letter. [illegal] | line: 14 | Column: 2
+SyntaxError: Unknown Symbol Found. [@] | line: 15 | Column: 1
+SyntaxError: Identifier must begin with an uppercase letter. [invalid] | line: 15 | Column: 2
+SyntaxError: Multi-Line comment not closed properly. line: 19
+
+-----------------------------------------
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 1 | Column: 17
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 3 | Column: 1
+
+Token type: TOK_EQ | Lexeme: = | Line: 3 | Column: 56
+
+Token type: TOK_INTEGER | Lexeme: 10 | Line: 3 | Column: 58
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 3 | Column: 60
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 5 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 5 | Column: 5
+
+Token type: TOK_EQ | Lexeme: = | Line: 5 | Column: 7
+
+Token type: TOK_DOT | Lexeme: . | Line: 5 | Column: 11
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 5 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: FLOAT | Line: 6 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: B | Line: 6 | Column: 7
+
+Token type: TOK_EQ | Lexeme: = | Line: 6 | Column: 9
+
+Token type: TOK_DOT | Lexeme: . | Line: 6 | Column: 12
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 6 | Column: 14
+
+Token type: TOK_IDENTIFIER | Lexeme: FLOAT | Line: 7 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: C | Line: 7 | Column: 7
+
+Token type: TOK_EQ | Lexeme: = | Line: 7 | Column: 9
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 7 | Column: 16
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 9 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: X | Line: 9 | Column: 6
+
+Token type: TOK_EQ | Lexeme: = | Line: 9 | Column: 8
+
+Token type: TOK_IDENTIFIER | Lexeme: B | Line: 9 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 10 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: Y | Line: 10 | Column: 6
+
+Token type: TOK_EQ | Lexeme: = | Line: 10 | Column: 8
+
+Token type: TOK_IDENTIFIER | Lexeme: STRING | Line: 12 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: S1 | Line: 12 | Column: 8
+
+Token type: TOK_EQ | Lexeme: = | Line: 12 | Column: 11
+
+Token type: TOK_STRING | Lexeme: "Unclosed string
+STRING S2 = " | Line: 12 | Column: 13
+
+Token type: TOK_IDENTIFIER | Lexeme: Another | Line: 12 | Column: 43
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 12 | Column: 61
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 14 | Column: 9
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 15 | Column: 9
+
+
+-----------------------------------------
+Stats: 
+Total Tokens: 34 | Total Lines: 19
+
+-----------------------------------------
+
+Singleline comments: 1 lines.
+Comment 1: | Line# 1
+
+-----------------------------------------
+
+Multiline comments: 0 blocks.
+
+-----------------------------------------
+
+{A=1, FLOAT=2, B=2, C=1, "Unclosed string
+STRING S2 = "=1, CHAR=2, INT=2, .=2, X=1, Y=1, STRING=1, ;=8, ==7, S1=1, 10=1, Another=1}
+
+-----------------------------------------
+
+
+
+		 <<<<<<<<<<<<<<<<<  Test5 >>>>>>>>>>>>>>>>:
+
+
+-----------------------------------------
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 3 | Column: 2
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 3 | Column: 6
+
+Token type: TOK_EQ | Lexeme: = | Line: 3 | Column: 8
+
+Token type: TOK_INTEGER | Lexeme: 10 | Line: 3 | Column: 10
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 3 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 11 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: B | Line: 11 | Column: 5
+
+Token type: TOK_EQ | Lexeme: = | Line: 11 | Column: 7
+
+Token type: TOK_INTEGER | Lexeme: 20 | Line: 11 | Column: 9
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 11 | Column: 11
+
+Token type: TOK_RETURN | Lexeme: RETURN | Line: 18 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 18 | Column: 8
+
+Token type: TOK_PLUS | Lexeme: + | Line: 18 | Column: 10
+
+Token type: TOK_IDENTIFIER | Lexeme: B | Line: 18 | Column: 12
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 18 | Column: 13
+
+
+-----------------------------------------
+Stats: 
+Total Tokens: 15 | Total Lines: 20
+
+-----------------------------------------
+
+Singleline comments: 3 lines.
+Comment 1: | Line# 1
+Comment 2: | Line# 2
+Comment 3: | Line# 3
+
+-----------------------------------------
+
+Multiline comments: 2 blocks.
+Block 1: | Line# 5 | Block Size: 5
+Block 2: | Line# 13 | Block Size: 4
+
+-----------------------------------------
+
+{A=2, B=2, ;=3, +=1, ==2, INT=2, 20=1, return=1, 10=1}
+
+-----------------------------------------
+
+
+Process finished with exit code 0
+

@@ -19,7 +19,7 @@ public class ManualScanner
     ArrayList<Integer> SingleComm_List;
     ArrayList<ArrayList<Integer>> MultiComm_List;
 
-    ManualScanner()
+    ManualScanner(String input_path)
     {
         err = new ErrorHandler();
         symbols = new SymbolTable();
@@ -30,7 +30,7 @@ public class ManualScanner
 
         try
         {
-            Path path = Path.of("/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/src/input.txt");
+            Path path = Path.of(input_path);
             source = Files.readString(path);
         }
         catch(Exception e)

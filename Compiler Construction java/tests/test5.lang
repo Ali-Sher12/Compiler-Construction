@@ -1,0 +1,19 @@
+## This is a single-line comment
+## Another comment
+INT A = 10; ## comment after code
+
+#*
+This is a multiline comment
+Spanning multiple lines
+It should count lines correctly
+*#
+
+INT B = 20;
+
+#*
+Nested comment test
+Still multiline
+*#
+
+RETURN A + B;
+

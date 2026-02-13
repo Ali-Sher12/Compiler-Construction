@@ -1,0 +1,27 @@
+INT MAIN() {
+    INT A = 10;
+    FLOAT B = 3.14;
+    FLOAT C = 2.5e+10;
+    CHAR D = 'X';
+    STRING S = "HELLO";
+
+    A = A + 1;
+    A++;
+    A--;
+    A += 5;
+    A -= 3;
+    A *= 2;
+    A /= 4;
+    A %= 2;
+
+    IF (A == 10 && B != 0 || A < 100) {
+        PRINT(A);
+    }
+
+    WHILE (A >= 0) {
+        A = A - 1;
+    }
+
+    RETURN A;
+}
+

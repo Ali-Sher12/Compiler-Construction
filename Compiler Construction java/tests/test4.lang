@@ -1,0 +1,19 @@
+int invalidStart;         ## lowercase identifier (error)
+
+INT VERYLONGIDENTIFIERNAMEEXCEEDINGTHIRTYCHARACTERS123 = 10;
+
+INT A = 10.;
+FLOAT B = 2.e;
+FLOAT C = 3.5e+;
+
+CHAR X = 'AB';
+CHAR Y = ';
+
+STRING S1 = "Unclosed string
+STRING S2 = "Another bad string;
+
+$illegal;
+@invalid;
+
+#* Unclosed multiline comment
+

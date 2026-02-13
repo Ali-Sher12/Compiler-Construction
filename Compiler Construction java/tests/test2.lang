@@ -1,0 +1,13 @@
+INT COMPUTE() {
+    INT X = 10;
+    FLOAT Y = 5.5;
+    FLOAT Z = (X * Y) + (X / 2.0) - 3.5e-2;
+
+    IF ((X > 5 && Y <= 10.0) || !(Z == 0)) {
+        X = X * (Y + 3) - (Z / 2);
+    }
+
+    RESULT = X ** 2 + Y ^ 3;
+    RETURN RESULT;
+}
+
