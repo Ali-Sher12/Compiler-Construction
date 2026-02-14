@@ -33,14 +33,14 @@ public class TokenType
     String TOK_LE         = "TOK_LE"    ;     //  <=
     String TOK_NE         = "TOK_NE"    ;     //  !=
     String TOK_EQEQ       = "TOK_EQEQ"  ;     //  ==
-    String TOK_AND        = "TOK_ASSIGN";     //  &&
-    String TOK_OR         = "TOK_ASSIGN";     //  ||
-    String TOK_INC        = "TOK_ASSIGN";     //  ++
-    String TOK_DEC        = "TOK_ASSIGN";     //  --
-    String TOK_PLUSASSIGN   = "TOK_ASSIGN";     //  +=
-    String TOK_MINUSASSIGN  = "TOK_ASSIGN";     //  -=
-    String TOK_MULASSIGN  = "TOK_ASSIGN";     //  *=
-    String TOK_DIVASSIGN  = "TOK_ASSIGN";     //  /=
+    String TOK_AND        = "TOK_AND";     //  &&
+    String TOK_OR         = "TOK_OR";     //  ||
+    String TOK_INC        = "TOK_INC";     //  ++
+    String TOK_DEC        = "TOK_DEC";     //  --
+    String TOK_PLUSASSIGN   = "TOK_PLUSASSIGN";     //  +=
+    String TOK_MINUSASSIGN  = "TOK_MINUSASSIGN";     //  -=
+    String TOK_MULASSIGN  = "TOK_MULASSIGN";     //  *=
+    String TOK_DIVASSIGN  = "TOK_DIVASSIGN";     //  /=
     // Literals
     String TOK_IDENTIFIER = "TOK_IDENTIFIER";
     String TOK_STRING     = "TOK_STRING";
