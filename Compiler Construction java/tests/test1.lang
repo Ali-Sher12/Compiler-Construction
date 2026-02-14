@@ -4,7 +4,7 @@ INT MAIN() {
     FLOAT C = 2.5e+10;
     CHAR D = 'X';
     STRING S = "HELLO";
-
+    condition Condition cOndition
     A = A + 1;
     A++;
     A--;

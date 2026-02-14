@@ -56,9 +56,8 @@ public class ManualScanner
     }
 
     String isKEYWORD(String lexeme) {
-        // I want the keywords to be case-insensitive, despite what was mentioned in the assignment
-        if(Tokens_Dict.token_map.containsKey(lexeme.toLowerCase()))
-            return Tokens_Dict.token_map.get(lexeme.toLowerCase());
+        if(Tokens_Dict.token_map.containsKey(lexeme))
+            return Tokens_Dict.token_map.get(lexeme);
         if(Identifier_Eligibility())
             return Tokens_Dict.TOK_IDENTIFIER;
         return Tokens_Dict.NOT_A_TOKEN;
@@ -84,10 +83,7 @@ public class ManualScanner
 
         Token tempToken = new Token(input_type, source.substring(start, curr),line,column-(curr-start));
         Tokens_List.add(tempToken);
-
-        if(Tokens_Dict.token_map.containsKey(source.substring(start, curr).toLowerCase()))
-            symbols.add(tempToken.Lexeme.toLowerCase());
-        else symbols.add(tempToken.Lexeme);
+        symbols.add(tempToken.Lexeme);
     }
 
     char peek(){
