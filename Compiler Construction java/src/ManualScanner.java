@@ -18,6 +18,8 @@ public class ManualScanner
     ArrayList<Integer> SingleComm_List;
     ArrayList<ArrayList<Integer>> MultiComm_List;
 
+    ArrayList<ArrayList<Character>> Transition_Table;
+
     ManualScanner(String input_path)
     {
         err = new ErrorHandler();
@@ -54,6 +56,7 @@ public class ManualScanner
     }
 
     String isKEYWORD(String lexeme) {
+        // I want the keywords to be case-insensitive, despite what was mentioned in the assignment
         if(Tokens_Dict.token_map.containsKey(lexeme.toLowerCase()))
             return Tokens_Dict.token_map.get(lexeme.toLowerCase());
         if(Identifier_Eligibility())

@@ -19,5 +19,4 @@ public class Token
     {
         System.out.println("Token type: "+Type+" | Lexeme: "+Lexeme+" | Line: "+Line+" | Column: "+Column+"\n");
     }
-
 }
