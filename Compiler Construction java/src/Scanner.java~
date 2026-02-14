@@ -41,12 +41,12 @@ class Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\4\1\12\1\62\1\62\1\4\22\0\1\4\1\21\1\11"+
-    "\1\16\1\0\1\47\1\24\1\15\1\51\1\52\1\17\1\26\1\57"+
+    "\11\0\1\4\1\15\1\62\1\62\1\4\22\0\1\4\1\21\1\14"+
+    "\1\16\1\0\1\47\1\24\1\12\1\51\1\52\1\17\1\26\1\57"+
     "\1\5\1\6\1\27\12\1\1\61\1\60\1\22\1\20\1\23\2\0"+
-    "\4\2\1\7\25\2\1\55\1\13\1\56\1\50\1\3\1\0\1\32"+
-    "\1\45\1\42\1\43\1\10\1\33\1\3\1\36\1\34\1\3\1\46"+
-    "\1\37\1\3\1\35\1\40\1\41\1\3\1\14\1\30\1\31\1\44"+
+    "\4\2\1\7\25\2\1\55\1\11\1\56\1\50\1\3\1\0\1\32"+
+    "\1\45\1\42\1\43\1\10\1\34\1\3\1\36\1\35\1\3\1\46"+
+    "\1\37\1\3\1\13\1\40\1\41\1\3\1\33\1\30\1\31\1\44"+
     "\5\3\1\53\1\25\1\54\7\0\1\62\u1fa2\0\1\62\1\62\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
@@ -60,21 +60,20 @@ class Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\4\1\5\5\1\1\6"+
+    "\1\0\1\1\1\2\1\3\1\4\1\5\4\1\1\6"+
     "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16"+
-    "\11\1\1\17\1\20\1\21\1\22\1\23\1\24\1\25"+
-    "\1\26\1\27\1\30\1\31\1\0\1\3\1\32\1\33"+
-    "\2\0\1\34\4\0\1\35\1\0\1\36\1\37\1\40"+
-    "\1\41\1\42\1\43\1\44\1\45\1\46\1\47\1\50"+
-    "\13\0\1\51\1\3\2\0\1\52\14\0\1\51\1\0"+
-    "\1\3\1\53\1\0\1\54\1\0\1\55\4\0\1\56"+
-    "\5\0\2\51\1\0\1\3\1\0\1\57\1\60\2\0"+
-    "\1\61\4\0\1\62\1\51\1\3\1\63\1\64\1\0"+
-    "\1\65\3\0\1\51\1\3\3\0\1\66\1\51\1\3"+
-    "\1\67\1\70\1\0\1\3\1\71\26\3";
+    "\12\1\1\17\1\20\1\21\1\22\1\23\1\24\1\25"+
+    "\1\26\1\27\1\30\1\31\1\0\1\3\1\32\5\0"+
+    "\1\33\1\34\1\0\1\35\1\36\1\37\1\40\1\41"+
+    "\1\13\1\14\14\0\1\42\1\3\1\0\1\43\15\0"+
+    "\1\42\1\0\1\3\1\44\1\45\1\0\1\46\5\0"+
+    "\1\47\5\0\2\42\1\0\1\3\1\50\1\0\1\51"+
+    "\2\0\1\52\4\0\1\53\1\42\1\3\1\54\1\55"+
+    "\1\0\1\56\3\0\1\42\1\3\3\0\1\57\1\42"+
+    "\1\3\1\60\1\61\1\0\1\3\1\62\26\3";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[169];
+    int [] result = new int[164];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -104,26 +103,25 @@ class Scanner {
     "\0\u0330\0\u0363\0\u0396\0\u03c9\0\u03fc\0\u042f\0\u0462\0\u0495"+
     "\0\u04c8\0\u04fb\0\u052e\0\u0561\0\u0594\0\63\0\63\0\63"+
     "\0\63\0\63\0\63\0\63\0\63\0\63\0\63\0\63"+
-    "\0\u05c7\0\u05fa\0\63\0\63\0\u062d\0\u0165\0\63\0\u0660"+
-    "\0\u0693\0\u06c6\0\u06f9\0\u072c\0\u075f\0\63\0\63\0\63"+
-    "\0\63\0\63\0\63\0\63\0\63\0\63\0\63\0\63"+
-    "\0\u0792\0\u07c5\0\u07f8\0\u082b\0\u085e\0\u0891\0\u08c4\0\u08f7"+
-    "\0\u092a\0\u095d\0\u0990\0\u09c3\0\u09f6\0\u0a29\0\u0a5c\0\63"+
-    "\0\u0a8f\0\u0ac2\0\u0af5\0\u0b28\0\u0b5b\0\u0b8e\0\u0bc1\0\u0bf4"+
-    "\0\u0c27\0\u0c5a\0\u0c8d\0\u0cc0\0\u0cf3\0\u0d26\0\u0d59\0\63"+
-    "\0\u0d8c\0\63\0\u0dbf\0\63\0\u0df2\0\u0e25\0\u0e58\0\u0e8b"+
-    "\0\63\0\u0ebe\0\u0ef1\0\u0f24\0\u0f57\0\u0f8a\0\u0fbd\0\u0ff0"+
-    "\0\u0ff0\0\u1023\0\u1056\0\63\0\63\0\u1089\0\u10bc\0\63"+
-    "\0\u10ef\0\u1122\0\u1155\0\u1188\0\63\0\u11bb\0\u11ee\0\63"+
-    "\0\63\0\u1221\0\63\0\u1254\0\u1287\0\u12ba\0\u12ed\0\u1320"+
-    "\0\u1353\0\u1386\0\u13b9\0\63\0\u13ec\0\u141f\0\63\0\63"+
-    "\0\u1452\0\u1485\0\63\0\u14b8\0\u14eb\0\u151e\0\u1551\0\u1584"+
-    "\0\u15b7\0\u15ea\0\u161d\0\u1650\0\u1683\0\u16b6\0\u16e9\0\u171c"+
-    "\0\u174f\0\u1782\0\u17b5\0\u17e8\0\u181b\0\u184e\0\u1881\0\u18b4"+
-    "\0\63";
+    "\0\u05c7\0\u05fa\0\63\0\u062d\0\u0660\0\u0693\0\u0198\0\u06c6"+
+    "\0\63\0\u06f9\0\u072c\0\63\0\63\0\63\0\63\0\63"+
+    "\0\63\0\63\0\u075f\0\u0792\0\u07c5\0\u07f8\0\u082b\0\u085e"+
+    "\0\u0891\0\u08c4\0\u08f7\0\u092a\0\u095d\0\u0990\0\u09c3\0\u09f6"+
+    "\0\u0a29\0\63\0\u0a5c\0\u0a8f\0\u0ac2\0\u0af5\0\u0b28\0\u0b5b"+
+    "\0\u0b8e\0\u0bc1\0\u0bf4\0\u0c27\0\u0c5a\0\u0c8d\0\u0cc0\0\u0cf3"+
+    "\0\u0d26\0\u0d59\0\63\0\63\0\u0d8c\0\63\0\u0dbf\0\u0df2"+
+    "\0\u0e25\0\u0e58\0\u0e8b\0\63\0\u0ebe\0\u0ef1\0\u0f24\0\u0f57"+
+    "\0\u0f8a\0\u0fbd\0\u0ff0\0\u0ff0\0\u1023\0\63\0\u1056\0\63"+
+    "\0\u1089\0\u10bc\0\63\0\u10ef\0\u1122\0\u1155\0\u1188\0\63"+
+    "\0\u11bb\0\u11ee\0\63\0\63\0\u1221\0\63\0\u1254\0\u1287"+
+    "\0\u12ba\0\u12ed\0\u1320\0\u1353\0\u1386\0\u13b9\0\63\0\u13ec"+
+    "\0\u141f\0\63\0\63\0\u1452\0\u1485\0\63\0\u14b8\0\u14eb"+
+    "\0\u151e\0\u1551\0\u1584\0\u15b7\0\u15ea\0\u161d\0\u1650\0\u1683"+
+    "\0\u16b6\0\u16e9\0\u171c\0\u174f\0\u1782\0\u17b5\0\u17e8\0\u181b"+
+    "\0\u184e\0\u1881\0\u18b4\0\63";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[169];
+    int [] result = new int[164];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -147,79 +145,72 @@ class Scanner {
 
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\1\3\1\4\1\2\1\5\1\6\1\2\1\4"+
-    "\1\7\1\10\1\5\1\2\1\11\1\12\1\13\1\14"+
-    "\1\15\1\16\1\17\1\20\1\21\1\22\1\23\1\24"+
-    "\1\25\1\26\1\2\1\27\1\30\2\2\1\31\1\32"+
-    "\1\2\1\33\1\34\1\2\1\35\1\2\1\36\1\37"+
-    "\1\40\1\41\1\42\1\43\1\44\1\45\1\46\1\47"+
-    "\1\50\65\0\1\3\4\0\1\51\55\0\1\52\1\0"+
-    "\1\52\4\0\1\52\3\0\1\52\13\0\17\52\20\0"+
-    "\1\5\5\0\1\5\51\0\1\3\3\0\1\53\12\0"+
-    "\1\54\101\0\1\55\23\0\11\56\1\57\1\0\1\60"+
-    "\47\56\10\0\1\61\52\0\12\62\1\0\1\63\1\62"+
-    "\1\0\45\62\16\0\1\64\1\65\62\0\1\66\1\67"+
-    "\62\0\1\70\62\0\1\71\62\0\1\72\62\0\1\73"+
-    "\66\0\1\74\63\0\1\75\36\0\1\3\16\0\1\76"+
-    "\5\0\1\77\54\0\1\100\73\0\1\101\45\0\1\102"+
-    "\100\0\1\103\1\0\1\104\7\0\1\105\53\0\1\106"+
-    "\65\0\1\107\66\0\1\110\56\0\1\111\32\0\1\112"+
-    "\66\0\1\113\47\0\1\114\62\0\1\115\1\0\1\115"+
-    "\4\0\1\115\3\0\1\115\13\0\17\115\44\0\1\116"+
-    "\43\0\4\56\14\0\1\56\62\0\1\117\46\0\1\120"+
-    "\56\0\4\62\14\0\1\62\31\0\12\64\1\0\50\64"+
-    "\17\65\1\121\43\65\32\0\1\122\74\0\1\123\55\0"+
-    "\1\124\60\0\1\125\62\0\1\126\66\0\1\127\61\0"+
-    "\1\130\53\0\1\131\66\0\1\132\67\0\1\133\30\0"+
-    "\1\134\53\0\1\135\5\0\2\136\53\0\1\137\1\0"+
-    "\1\137\4\0\1\137\3\0\1\137\13\0\17\137\24\0"+
-    "\1\140\116\0\1\141\16\0\16\65\1\142\1\121\43\65"+
-    "\14\0\1\143\56\0\1\144\102\0\1\145\66\0\1\146"+
-    "\70\0\1\147\64\0\1\150\57\0\1\151\62\0\1\152"+
-    "\52\0\1\153\11\0\1\154\56\0\1\155\55\0\1\156"+
-    "\31\0\1\157\5\0\2\136\53\0\1\160\3\0\1\161"+
-    "\20\0\1\161\35\0\1\162\1\0\1\162\4\0\1\162"+
-    "\3\0\1\162\13\0\17\162\30\0\1\163\77\0\1\164"+
-    "\41\0\1\165\102\0\1\166\63\0\1\167\62\0\1\170"+
-    "\75\0\1\171\52\0\1\172\62\0\1\173\60\0\1\174"+
-    "\76\0\1\175\15\0\1\176\5\0\2\136\53\0\1\160"+
-    "\62\0\1\177\1\0\1\177\4\0\1\177\3\0\1\177"+
-    "\13\0\17\177\51\0\1\200\63\0\1\201\60\0\1\202"+
-    "\57\0\1\203\66\0\1\204\56\0\1\205\45\0\1\206"+
-    "\47\0\1\207\5\0\2\136\53\0\1\210\1\0\1\210"+
-    "\4\0\1\210\3\0\1\210\13\0\17\210\54\0\1\211"+
-    "\66\0\1\212\52\0\1\213\36\0\1\214\53\0\1\215"+
-    "\5\0\2\136\53\0\1\216\1\0\1\216\4\0\1\216"+
-    "\3\0\1\216\13\0\17\216\51\0\1\217\35\0\1\220"+
-    "\112\0\1\221\31\0\2\136\53\0\1\222\1\0\1\222"+
-    "\4\0\1\222\3\0\1\222\13\0\17\222\51\0\1\223"+
-    "\26\0\1\224\1\0\1\224\4\0\1\224\3\0\1\224"+
-    "\13\0\17\224\15\0\1\225\1\0\1\225\4\0\1\225"+
-    "\3\0\1\225\13\0\17\225\15\0\1\226\1\0\1\226"+
-    "\4\0\1\226\3\0\1\226\13\0\17\226\15\0\1\227"+
-    "\1\0\1\227\4\0\1\227\3\0\1\227\13\0\17\227"+
-    "\15\0\1\230\1\0\1\230\4\0\1\230\3\0\1\230"+
-    "\13\0\17\230\15\0\1\231\1\0\1\231\4\0\1\231"+
-    "\3\0\1\231\13\0\17\231\15\0\1\232\1\0\1\232"+
-    "\4\0\1\232\3\0\1\232\13\0\17\232\15\0\1\233"+
-    "\1\0\1\233\4\0\1\233\3\0\1\233\13\0\17\233"+
-    "\15\0\1\234\1\0\1\234\4\0\1\234\3\0\1\234"+
-    "\13\0\17\234\15\0\1\235\1\0\1\235\4\0\1\235"+
-    "\3\0\1\235\13\0\17\235\15\0\1\236\1\0\1\236"+
-    "\4\0\1\236\3\0\1\236\13\0\17\236\15\0\1\237"+
-    "\1\0\1\237\4\0\1\237\3\0\1\237\13\0\17\237"+
-    "\15\0\1\240\1\0\1\240\4\0\1\240\3\0\1\240"+
-    "\13\0\17\240\15\0\1\241\1\0\1\241\4\0\1\241"+
-    "\3\0\1\241\13\0\17\241\15\0\1\242\1\0\1\242"+
-    "\4\0\1\242\3\0\1\242\13\0\17\242\15\0\1\243"+
-    "\1\0\1\243\4\0\1\243\3\0\1\243\13\0\17\243"+
-    "\15\0\1\244\1\0\1\244\4\0\1\244\3\0\1\244"+
-    "\13\0\17\244\15\0\1\245\1\0\1\245\4\0\1\245"+
-    "\3\0\1\245\13\0\17\245\15\0\1\246\1\0\1\246"+
-    "\4\0\1\246\3\0\1\246\13\0\17\246\15\0\1\247"+
-    "\1\0\1\247\4\0\1\247\3\0\1\247\13\0\17\247"+
-    "\15\0\1\250\1\0\1\250\4\0\1\250\3\0\1\250"+
-    "\13\0\17\250\15\0\1\251\1\0\1\251\4\0\1\251"+
-    "\3\0\1\251\13\0\17\251\14\0";
+    "\1\7\1\2\1\10\1\2\1\11\1\5\1\12\1\13"+
+    "\1\14\1\15\1\16\1\17\1\20\1\21\1\22\1\23"+
+    "\1\24\1\25\1\2\1\26\1\27\1\30\1\2\1\31"+
+    "\1\32\1\2\1\33\1\34\1\2\1\35\1\2\1\36"+
+    "\1\37\1\40\1\41\1\42\1\43\1\44\1\45\1\46"+
+    "\1\47\1\50\65\0\1\3\4\0\1\51\55\0\3\52"+
+    "\3\0\2\52\2\0\1\52\14\0\17\52\20\0\1\5"+
+    "\10\0\1\5\46\0\1\3\3\0\1\53\12\0\1\53"+
+    "\101\0\1\54\23\0\11\55\1\56\1\0\2\55\1\0"+
+    "\45\55\11\57\1\60\2\57\1\61\1\0\45\57\16\0"+
+    "\1\62\1\63\62\0\1\64\1\53\62\0\1\65\62\0"+
+    "\1\66\62\0\1\67\62\0\1\70\66\0\1\71\63\0"+
+    "\1\72\36\0\1\3\16\0\1\53\5\0\1\53\54\0"+
+    "\1\53\73\0\1\73\64\0\1\74\37\0\1\75\104\0"+
+    "\1\76\2\0\1\77\6\0\1\100\31\0\1\101\107\0"+
+    "\1\102\66\0\1\103\56\0\1\104\32\0\1\105\105\0"+
+    "\1\106\30\0\1\107\62\0\3\110\3\0\2\110\2\0"+
+    "\1\110\14\0\17\110\44\0\1\111\44\0\1\112\61\0"+
+    "\4\55\14\0\1\55\1\0\1\55\40\0\4\57\14\0"+
+    "\1\57\1\0\1\57\27\0\15\62\1\0\45\62\17\63"+
+    "\1\113\43\63\32\0\1\114\74\0\1\115\47\0\1\116"+
+    "\70\0\1\117\36\0\1\120\62\0\1\121\110\0\1\122"+
+    "\61\0\1\123\53\0\1\124\44\0\1\125\111\0\1\126"+
+    "\30\0\1\127\53\0\1\130\5\0\2\131\53\0\3\132"+
+    "\3\0\2\132\2\0\1\132\14\0\17\132\24\0\1\133"+
+    "\52\0\16\63\1\134\1\113\43\63\33\0\1\135\37\0"+
+    "\1\136\116\0\1\137\46\0\1\140\67\0\1\141\67\0"+
+    "\1\142\64\0\1\143\57\0\1\144\62\0\1\145\52\0"+
+    "\1\146\11\0\1\147\56\0\1\150\55\0\1\151\31\0"+
+    "\1\152\5\0\2\131\53\0\1\153\3\0\1\154\20\0"+
+    "\1\154\35\0\3\155\3\0\2\155\2\0\1\155\14\0"+
+    "\17\155\45\0\1\156\64\0\1\157\37\0\1\160\102\0"+
+    "\1\161\63\0\1\162\62\0\1\163\75\0\1\164\53\0"+
+    "\1\165\62\0\1\166\57\0\1\167\76\0\1\170\15\0"+
+    "\1\171\5\0\2\131\53\0\1\153\62\0\3\172\3\0"+
+    "\2\172\2\0\1\172\14\0\17\172\27\0\1\173\105\0"+
+    "\1\174\61\0\1\175\56\0\1\176\44\0\1\177\100\0"+
+    "\1\200\64\0\1\201\30\0\1\202\5\0\2\131\53\0"+
+    "\3\203\3\0\2\203\2\0\1\203\14\0\17\203\54\0"+
+    "\1\204\66\0\1\205\53\0\1\206\35\0\1\207\53\0"+
+    "\1\210\5\0\2\131\53\0\3\211\3\0\2\211\2\0"+
+    "\1\211\14\0\17\211\27\0\1\212\57\0\1\213\112\0"+
+    "\1\214\31\0\2\131\53\0\3\215\3\0\2\215\2\0"+
+    "\1\215\14\0\17\215\27\0\1\216\50\0\3\217\3\0"+
+    "\2\217\2\0\1\217\14\0\17\217\15\0\3\220\3\0"+
+    "\2\220\2\0\1\220\14\0\17\220\15\0\3\221\3\0"+
+    "\2\221\2\0\1\221\14\0\17\221\15\0\3\222\3\0"+
+    "\2\222\2\0\1\222\14\0\17\222\15\0\3\223\3\0"+
+    "\2\223\2\0\1\223\14\0\17\223\15\0\3\224\3\0"+
+    "\2\224\2\0\1\224\14\0\17\224\15\0\3\225\3\0"+
+    "\2\225\2\0\1\225\14\0\17\225\15\0\3\226\3\0"+
+    "\2\226\2\0\1\226\14\0\17\226\15\0\3\227\3\0"+
+    "\2\227\2\0\1\227\14\0\17\227\15\0\3\230\3\0"+
+    "\2\230\2\0\1\230\14\0\17\230\15\0\3\231\3\0"+
+    "\2\231\2\0\1\231\14\0\17\231\15\0\3\232\3\0"+
+    "\2\232\2\0\1\232\14\0\17\232\15\0\3\233\3\0"+
+    "\2\233\2\0\1\233\14\0\17\233\15\0\3\234\3\0"+
+    "\2\234\2\0\1\234\14\0\17\234\15\0\3\235\3\0"+
+    "\2\235\2\0\1\235\14\0\17\235\15\0\3\236\3\0"+
+    "\2\236\2\0\1\236\14\0\17\236\15\0\3\237\3\0"+
+    "\2\237\2\0\1\237\14\0\17\237\15\0\3\240\3\0"+
+    "\2\240\2\0\1\240\14\0\17\240\15\0\3\241\3\0"+
+    "\2\241\2\0\1\241\14\0\17\241\15\0\3\242\3\0"+
+    "\2\242\2\0\1\242\14\0\17\242\15\0\3\243\3\0"+
+    "\2\243\2\0\1\243\14\0\17\243\15\0\3\244\3\0"+
+    "\2\244\2\0\1\244\14\0\17\244\14\0";
 
   private static int [] zzUnpackTrans() {
     int [] result = new int[6375];
@@ -260,16 +251,16 @@ class Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\33\1\13\11\1\0\1\1\2\11\2\0"+
-    "\1\11\4\0\1\1\1\0\13\11\13\0\2\1\2\0"+
-    "\1\11\14\0\1\1\1\0\1\1\1\11\1\0\1\11"+
-    "\1\0\1\11\4\0\1\11\5\0\2\1\1\0\1\1"+
-    "\1\0\2\11\2\0\1\11\4\0\1\11\2\1\2\11"+
-    "\1\0\1\11\3\0\2\1\3\0\1\11\2\1\2\11"+
-    "\1\0\1\1\1\11\25\1\1\11";
+    "\1\0\1\11\33\1\13\11\1\0\1\1\1\11\5\0"+
+    "\1\11\1\1\1\0\7\11\14\0\2\1\1\0\1\11"+
+    "\15\0\1\1\1\0\1\1\2\11\1\0\1\11\5\0"+
+    "\1\11\5\0\2\1\1\0\1\1\1\11\1\0\1\11"+
+    "\2\0\1\11\4\0\1\11\2\1\2\11\1\0\1\11"+
+    "\3\0\2\1\3\0\1\11\2\1\2\11\1\0\1\1"+
+    "\1\11\25\1\1\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[169];
+    int [] result = new int[164];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -345,7 +336,7 @@ class Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-    // Token type definitions
+    // Token type definitions matching manual scanner
     public static final String NOT_A_TOKEN = "NOT_A_TOKEN";
     public static final String TOK_LPAREN = "TOK_LPAREN";
     public static final String TOK_RPAREN = "TOK_RPAREN";
@@ -375,14 +366,7 @@ class Scanner {
     public static final String TOK_LE = "TOK_LE";
     public static final String TOK_NE = "TOK_NE";
     public static final String TOK_EQEQ = "TOK_EQEQ";
-    public static final String TOK_AND = "TOK_AND";
-    public static final String TOK_OR = "TOK_OR";
-    public static final String TOK_INC = "TOK_INC";
-    public static final String TOK_DEC = "TOK_DEC";
-    public static final String TOK_PLUSASSIGN = "TOK_PLUSASSIGN";
-    public static final String TOK_MINUSASSIGN = "TOK_MINUSASSIGN";
-    public static final String TOK_MULASSIGN = "TOK_MULASSIGN";
-    public static final String TOK_DIVASSIGN = "TOK_DIVASSIGN";
+    public static final String TOK_ASSIGN = "TOK_ASSIGN";  // Used for ++, --, +=, -=, *=, /=
     public static final String TOK_IDENTIFIER = "TOK_IDENTIFIER";
     public static final String TOK_STRING = "TOK_STRING";
     public static final String TOK_CHAR = "TOK_CHAR";
@@ -419,7 +403,7 @@ class Scanner {
 
         @Override
         public String toString() {
-            return String.format("<%s, \"%s\", line=%d, col=%d>",
+            return String.format("Token type: %s | Lexeme: %s | Line: %d | Column: %d",
                                type, lexeme, line, column);
         }
     }
@@ -811,287 +795,252 @@ class Scanner {
                               return createToken(NOT_A_TOKEN);
             } 
             // fall through
-          case 58: break;
+          case 51: break;
           case 2: 
             { return createToken(TOK_INTEGER);
             } 
             // fall through
-          case 59: break;
+          case 52: break;
           case 3: 
             { return createToken(TOK_IDENTIFIER);
             } 
             // fall through
-          case 60: break;
+          case 53: break;
           case 4: 
             { /* Skip whitespace, line tracking is automatic */
             } 
             // fall through
-          case 61: break;
+          case 54: break;
           case 5: 
             { return createToken(TOK_MINUS);
             } 
             // fall through
-          case 62: break;
+          case 55: break;
           case 6: 
             { return createToken(TOK_STAR);
             } 
             // fall through
-          case 63: break;
+          case 56: break;
           case 7: 
             { return createToken(TOK_EQ);
             } 
             // fall through
-          case 64: break;
+          case 57: break;
           case 8: 
             { return createToken(TOK_NOT);
             } 
             // fall through
-          case 65: break;
+          case 58: break;
           case 9: 
             { return createToken(TOK_LT);
             } 
             // fall through
-          case 66: break;
+          case 59: break;
           case 10: 
             { return createToken(TOK_GT);
             } 
             // fall through
-          case 67: break;
+          case 60: break;
           case 11: 
             { return createToken(TOK_LOGICALAND);
             } 
             // fall through
-          case 68: break;
+          case 61: break;
           case 12: 
             { return createToken(TOK_LOGICALOR);
             } 
             // fall through
-          case 69: break;
+          case 62: break;
           case 13: 
             { return createToken(TOK_PLUS);
             } 
             // fall through
-          case 70: break;
+          case 63: break;
           case 14: 
             { return createToken(TOK_DIV);
             } 
             // fall through
-          case 71: break;
+          case 64: break;
           case 15: 
             { return createToken(TOK_MOD);
             } 
             // fall through
-          case 72: break;
+          case 65: break;
           case 16: 
             { return createToken(TOK_LOGICALXOR);
             } 
             // fall through
-          case 73: break;
+          case 66: break;
           case 17: 
             { return createToken(TOK_LPAREN);
             } 
             // fall through
-          case 74: break;
+          case 67: break;
           case 18: 
             { return createToken(TOK_RPAREN);
             } 
             // fall through
-          case 75: break;
+          case 68: break;
           case 19: 
             { return createToken(TOK_LCURLY);
             } 
             // fall through
-          case 76: break;
+          case 69: break;
           case 20: 
             { return createToken(TOK_RCURLY);
             } 
             // fall through
-          case 77: break;
+          case 70: break;
           case 21: 
             { return createToken(TOK_LSQUAR);
             } 
             // fall through
-          case 78: break;
+          case 71: break;
           case 22: 
             { return createToken(TOK_RSQUAR);
             } 
             // fall through
-          case 79: break;
+          case 72: break;
           case 23: 
             { return createToken(TOK_COMMA);
             } 
             // fall through
-          case 80: break;
+          case 73: break;
           case 24: 
             { return createToken(TOK_SEMICOLON);
             } 
             // fall through
-          case 81: break;
+          case 74: break;
           case 25: 
             { return createToken(TOK_COLON);
             } 
             // fall through
-          case 82: break;
+          case 75: break;
           case 26: 
-            { return createToken(TOK_DEC);
+            { return createToken(TOK_ASSIGN);
             } 
             // fall through
-          case 83: break;
+          case 76: break;
           case 27: 
-            { return createToken(TOK_MINUSASSIGN);
-            } 
-            // fall through
-          case 84: break;
-          case 28: 
             { return createToken(TOK_STRING);
             } 
             // fall through
-          case 85: break;
-          case 29: 
+          case 77: break;
+          case 28: 
             { /* Skip single-line comments */
             } 
             // fall through
-          case 86: break;
-          case 30: 
+          case 78: break;
+          case 29: 
             { return createToken(TOK_EXPONENT);
             } 
             // fall through
-          case 87: break;
-          case 31: 
-            { return createToken(TOK_MULASSIGN);
-            } 
-            // fall through
-          case 88: break;
-          case 32: 
+          case 79: break;
+          case 30: 
             { return createToken(TOK_EQEQ);
             } 
             // fall through
-          case 89: break;
-          case 33: 
+          case 80: break;
+          case 31: 
             { return createToken(TOK_NE);
             } 
             // fall through
-          case 90: break;
-          case 34: 
+          case 81: break;
+          case 32: 
             { return createToken(TOK_LE);
             } 
             // fall through
-          case 91: break;
-          case 35: 
+          case 82: break;
+          case 33: 
             { return createToken(TOK_GE);
             } 
             // fall through
-          case 92: break;
-          case 36: 
-            { return createToken(TOK_AND);
-            } 
-            // fall through
-          case 93: break;
-          case 37: 
-            { return createToken(TOK_OR);
-            } 
-            // fall through
-          case 94: break;
-          case 38: 
-            { return createToken(TOK_PLUSASSIGN);
-            } 
-            // fall through
-          case 95: break;
-          case 39: 
-            { return createToken(TOK_INC);
-            } 
-            // fall through
-          case 96: break;
-          case 40: 
-            { return createToken(TOK_DIVASSIGN);
-            } 
-            // fall through
-          case 97: break;
-          case 41: 
+          case 83: break;
+          case 34: 
             { return createToken(TOK_FLOAT);
             } 
             // fall through
-          case 98: break;
-          case 42: 
+          case 84: break;
+          case 35: 
             { return createToken(TOK_CHAR);
             } 
             // fall through
-          case 99: break;
-          case 43: 
+          case 85: break;
+          case 36: 
             { return createToken(TOK_ELSE);
             } 
             // fall through
-          case 100: break;
-          case 44: 
+          case 86: break;
+          case 37: 
             { /* Skip multi-line comments */
             } 
             // fall through
-          case 101: break;
-          case 45: 
+          case 87: break;
+          case 38: 
             { return createToken(TOK_TRUE);
             } 
             // fall through
-          case 102: break;
-          case 46: 
+          case 88: break;
+          case 39: 
             { return createToken(TOK_LOOP);
             } 
             // fall through
-          case 103: break;
-          case 47: 
+          case 89: break;
+          case 40: 
             { return createToken(TOK_START);
             } 
             // fall through
-          case 104: break;
-          case 48: 
+          case 90: break;
+          case 41: 
             { return createToken(TOK_FALSE);
             } 
             // fall through
-          case 105: break;
-          case 49: 
+          case 91: break;
+          case 42: 
             { return createToken(TOK_INPUT);
             } 
             // fall through
-          case 106: break;
-          case 50: 
+          case 92: break;
+          case 43: 
             { return createToken(TOK_BREAK);
             } 
             // fall through
-          case 107: break;
-          case 51: 
+          case 93: break;
+          case 44: 
             { return createToken(TOK_RETURN);
             } 
             // fall through
-          case 108: break;
-          case 52: 
+          case 94: break;
+          case 45: 
             { return createToken(TOK_FINISH);
             } 
             // fall through
-          case 109: break;
-          case 53: 
+          case 95: break;
+          case 46: 
             { return createToken(TOK_OUTPUT);
             } 
             // fall through
-          case 110: break;
-          case 54: 
+          case 96: break;
+          case 47: 
             { return createToken(TOK_DECLARE);
             } 
             // fall through
-          case 111: break;
-          case 55: 
+          case 97: break;
+          case 48: 
             { return createToken(TOK_FUNCTION);
             } 
             // fall through
-          case 112: break;
-          case 56: 
+          case 98: break;
+          case 49: 
             { return createToken(TOK_CONTINUE);
             } 
             // fall through
-          case 113: break;
-          case 57: 
+          case 99: break;
+          case 50: 
             { return createToken(TOK_CONDITION);
             } 
             // fall through
-          case 114: break;
+          case 100: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

@@ -21,7 +21,7 @@ import java.util.HashMap;
 %type Token
 
 %{
-    // Token type definitions
+    // Token type definitions matching manual scanner
     public static final String NOT_A_TOKEN = "NOT_A_TOKEN";
     public static final String TOK_LPAREN = "TOK_LPAREN";
     public static final String TOK_RPAREN = "TOK_RPAREN";
@@ -51,14 +51,7 @@ import java.util.HashMap;
     public static final String TOK_LE = "TOK_LE";
     public static final String TOK_NE = "TOK_NE";
     public static final String TOK_EQEQ = "TOK_EQEQ";
-    public static final String TOK_AND = "TOK_AND";
-    public static final String TOK_OR = "TOK_OR";
-    public static final String TOK_INC = "TOK_INC";
-    public static final String TOK_DEC = "TOK_DEC";
-    public static final String TOK_PLUSASSIGN = "TOK_PLUSASSIGN";
-    public static final String TOK_MINUSASSIGN = "TOK_MINUSASSIGN";
-    public static final String TOK_MULASSIGN = "TOK_MULASSIGN";
-    public static final String TOK_DIVASSIGN = "TOK_DIVASSIGN";
+    public static final String TOK_ASSIGN = "TOK_ASSIGN";  // Used for ++, --, +=, -=, *=, /=
     public static final String TOK_IDENTIFIER = "TOK_IDENTIFIER";
     public static final String TOK_STRING = "TOK_STRING";
     public static final String TOK_CHAR = "TOK_CHAR";
@@ -95,7 +88,7 @@ import java.util.HashMap;
 
         @Override
         public String toString() {
-            return String.format("<%s, \"%s\", line=%d, col=%d>",
+            return String.format("Token type: %s | Lexeme: %s | Line: %d | Column: %d",
                                type, lexeme, line, column);
         }
     }
@@ -118,46 +111,34 @@ import java.util.HashMap;
 
 // Basic character classes
 DIGIT = [0-9]
-UPPERCASE = [A-Z]
-LOWERCASE = [a-z]
 LETTER = [a-zA-Z]
-UNDERSCORE = _
 WHITESPACE = [ \t\r\n]
 
-// Identifiers - Must start with uppercase, followed by lowercase/digits/underscore, max 31 chars
-IDENTIFIER = {UPPERCASE}({LOWERCASE}|{DIGIT}|{UNDERSCORE}){0,30}
+// Identifiers - Must start with uppercase, max 31 chars total
+// NO SPACES - spaces are delimiters
+IDENTIFIER = [A-Z][A-Za-z0-9_]{0,30}
 
-// Integer literals - Optional sign followed by digits
+// Integer literals
 INTEGER = [+-]?{DIGIT}+
 
-// Floating-point literals - Optional sign, digits, decimal point, 1-6 decimals, optional exponent
+// Floating-point literals
 FLOAT = [+-]?{DIGIT}+\.{DIGIT}{1,6}([eE][+-]?{DIGIT}+)?
-
-// String literals - Quoted strings with escape sequences
-STRING_CHAR = [^\"\\\n]
-ESCAPE_SEQ = \\[\"\\\ntr]
-STRING = \"({STRING_CHAR}|{ESCAPE_SEQ})*\"
-
-// Character literals - Single quoted character with escape sequences
-CHAR_CHAR = [^'\\\n]
-CHAR = '({CHAR_CHAR}|{ESCAPE_SEQ})'
 
 // Comments
 SINGLE_LINE_COMMENT = ##[^\n]*
-MULTI_LINE_COMMENT = #\*([^*]|\*+[^*#])*\*+#
+MULTI_LINE_COMMENT = "#*"([^*]|"*"+[^*#])*"*"+"#"
 
 %%
 
 /* =====================================================================
    LEXICAL RULES
-   Pattern matching priority as specified in Section 3.12
    ===================================================================== */
 
 /* Priority 1: Multi-line comments */
-{MULTI_LINE_COMMENT}        { /* Skip multi-line comments */ }
+{MULTI_LINE_COMMENT}        { /* Skip */ }
 
 /* Priority 2: Single-line comments */
-{SINGLE_LINE_COMMENT}       { /* Skip single-line comments */ }
+{SINGLE_LINE_COMMENT}       { /* Skip */ }
 
 /* Priority 3: Multi-character operators */
 "**"                        { return createToken(TOK_EXPONENT); }
@@ -165,16 +146,16 @@ MULTI_LINE_COMMENT = #\*([^*]|\*+[^*#])*\*+#
 "!="                        { return createToken(TOK_NE); }
 "<="                        { return createToken(TOK_LE); }
 ">="                        { return createToken(TOK_GE); }
-"&&"                        { return createToken(TOK_AND); }
-"||"                        { return createToken(TOK_OR); }
-"++"                        { return createToken(TOK_INC); }
-"--"                        { return createToken(TOK_DEC); }
-"+="                        { return createToken(TOK_PLUSASSIGN); }
-"-="                        { return createToken(TOK_MINUSASSIGN); }
-"*="                        { return createToken(TOK_MULASSIGN); }
-"/="                        { return createToken(TOK_DIVASSIGN); }
+"&&"                        { return createToken(TOK_LOGICALAND); }
+"||"                        { return createToken(TOK_LOGICALOR); }
+"++"                        { return createToken(TOK_ASSIGN); }
+"--"                        { return createToken(TOK_ASSIGN); }
+"+="                        { return createToken(TOK_ASSIGN); }
+"-="                        { return createToken(TOK_ASSIGN); }
+"*="                        { return createToken(TOK_ASSIGN); }
+"/="                        { return createToken(TOK_ASSIGN); }
 
-/* Priority 4: Keywords (case-sensitive) */
+/* Priority 4: Keywords */
 "start"                     { return createToken(TOK_START); }
 "finish"                    { return createToken(TOK_FINISH); }
 "loop"                      { return createToken(TOK_LOOP); }
@@ -201,9 +182,11 @@ MULTI_LINE_COMMENT = #\*([^*]|\*+[^*#])*\*+#
 /* Priority 8: Integer literals */
 {INTEGER}                   { return createToken(TOK_INTEGER); }
 
-/* Priority 9: String and character literals */
-{STRING}                    { return createToken(TOK_STRING); }
-{CHAR}                      { return createToken(TOK_CHAR); }
+/* Priority 9: String literals - match directly in rules */
+\"([^\"\\\n]|\\[\"\\\ntr])*\"   { return createToken(TOK_STRING); }
+
+/* Priority 9: Character literals - match directly in rules */
+'([^'\\\n]|\\['\\\ntr])'    { return createToken(TOK_CHAR); }
 
 /* Priority 10: Single-character operators */
 "+"                         { return createToken(TOK_PLUS); }
@@ -231,9 +214,9 @@ MULTI_LINE_COMMENT = #\*([^*]|\*+[^*#])*\*+#
 ":"                         { return createToken(TOK_COLON); }
 
 /* Priority 12: Whitespace */
-{WHITESPACE}+               { /* Skip whitespace, line tracking is automatic */ }
+{WHITESPACE}+               { /* Skip */ }
 
-/* Error handling - catch any unrecognized character */
+/* Error handling */
 .                           {
                               error("Unrecognized character: '" + yytext() + "'");
                               return createToken(NOT_A_TOKEN);

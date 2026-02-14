@@ -84,19 +84,19 @@ Token type: TOK_SEMICOLON | Lexeme: ; | Line: 8 | Column: 14
 
 Token type: TOK_IDENTIFIER | Lexeme: A | Line: 9 | Column: 5
 
-Token type: TOK_ASSIGN | Lexeme: ++ | Line: 9 | Column: 6
+Token type: TOK_INC | Lexeme: ++ | Line: 9 | Column: 6
 
 Token type: TOK_SEMICOLON | Lexeme: ; | Line: 9 | Column: 8
 
 Token type: TOK_IDENTIFIER | Lexeme: A | Line: 10 | Column: 5
 
-Token type: TOK_ASSIGN | Lexeme: -- | Line: 10 | Column: 6
+Token type: TOK_DEC | Lexeme: -- | Line: 10 | Column: 6
 
 Token type: TOK_SEMICOLON | Lexeme: ; | Line: 10 | Column: 8
 
 Token type: TOK_IDENTIFIER | Lexeme: A | Line: 11 | Column: 5
 
-Token type: TOK_ASSIGN | Lexeme: += | Line: 11 | Column: 7
+Token type: TOK_PLUSASSIGN | Lexeme: += | Line: 11 | Column: 7
 
 Token type: TOK_INTEGER | Lexeme: 5 | Line: 11 | Column: 10
 
@@ -104,7 +104,7 @@ Token type: TOK_SEMICOLON | Lexeme: ; | Line: 11 | Column: 11
 
 Token type: TOK_IDENTIFIER | Lexeme: A | Line: 12 | Column: 5
 
-Token type: TOK_ASSIGN | Lexeme: -= | Line: 12 | Column: 7
+Token type: TOK_MINUSASSIGN | Lexeme: -= | Line: 12 | Column: 7
 
 Token type: TOK_INTEGER | Lexeme: 3 | Line: 12 | Column: 10
 
@@ -112,7 +112,7 @@ Token type: TOK_SEMICOLON | Lexeme: ; | Line: 12 | Column: 11
 
 Token type: TOK_IDENTIFIER | Lexeme: A | Line: 13 | Column: 5
 
-Token type: TOK_ASSIGN | Lexeme: *= | Line: 13 | Column: 7
+Token type: TOK_MULASSIGN | Lexeme: *= | Line: 13 | Column: 7
 
 Token type: TOK_INTEGER | Lexeme: 2 | Line: 13 | Column: 10
 
@@ -120,7 +120,7 @@ Token type: TOK_SEMICOLON | Lexeme: ; | Line: 13 | Column: 11
 
 Token type: TOK_IDENTIFIER | Lexeme: A | Line: 14 | Column: 5
 
-Token type: TOK_ASSIGN | Lexeme: /= | Line: 14 | Column: 7
+Token type: TOK_DIVASSIGN | Lexeme: /= | Line: 14 | Column: 7
 
 Token type: TOK_INTEGER | Lexeme: 4 | Line: 14 | Column: 10
 
