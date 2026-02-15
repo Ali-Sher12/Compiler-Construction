@@ -61,13 +61,14 @@ public class TokenType
     String TOK_RETURN       = "TOK_RETURN";
     String TOK_BREAK       = "TOK_BREAK";
     String TOK_CONTINUE        = "TOK_CONTINUE";
-
+    String TOK_ELSE        = "TOK_ELSE";
     /////////////////////////////////////////
     HashMap<String, String> token_map;
 
     public TokenType()
     {
         token_map = new HashMap<String,String>();
+        token_map.put("else"   ,TOK_ELSE);
         token_map.put("condition"   ,TOK_CONDITION);
         token_map.put("start"  ,TOK_START);
         token_map.put("finish"   ,TOK_FINISH);

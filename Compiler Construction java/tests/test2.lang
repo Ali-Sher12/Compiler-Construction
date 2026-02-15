@@ -7,7 +7,8 @@ INT COMPUTE() {
         X = X * (Y + 3) - (Z / 2);
     }
 
-    RESULT = X ** 2 + Y ^ 3;
+    RESULT = X ** 2 + Y ** 3;
+    RESULT = RESULT ^ 255;
     RETURN RESULT;
 }
 

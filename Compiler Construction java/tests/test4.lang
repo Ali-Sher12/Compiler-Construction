@@ -1,3 +1,4 @@
+#*
 int invalidStart;         ## lowercase identifier (error)
 
 INT VERYLONGIDENTIFIERNAMEEXCEEDINGTHIRTYCHARACTERS123 = 10;
@@ -16,4 +17,4 @@ $illegal;
 @invalid;
 
 #* Unclosed multiline comment
-
+*#
