@@ -341,6 +341,11 @@ class Scanner {
         return new Token(type, yytext(), value, yyline + 1, yycolumn + 1);
     }
     
+    /* Helper method to create error tokens */
+    private Token error(String message) {
+        return Token.error(message, yytext(), yyline + 1, yycolumn + 1);
+    }
+
     /* Token class to represent lexical tokens */
     public static class Token {
         public String type;
@@ -348,26 +353,42 @@ class Scanner {
         public Object value;
         public int line;
         public int column;
-        
+        public boolean isError;
+        public String errorMessage;
+
         public Token(String type, String lexeme, int line, int column) {
             this.type = type;
             this.lexeme = lexeme;
             this.value = lexeme;
             this.line = line;
             this.column = column;
+            this.isError = false;
         }
-        
+
         public Token(String type, String lexeme, Object value, int line, int column) {
             this.type = type;
             this.lexeme = lexeme;
             this.value = value;
             this.line = line;
             this.column = column;
+            this.isError = false;
         }
-        
+
+        // Static factory method for error tokens
+        public static Token error(String errorMessage, String lexeme, int line, int column) {
+            Token token = new Token("ERROR", lexeme, line, column);
+            token.isError = true;
+            token.errorMessage = errorMessage;
+            return token;
+        }
+
         @Override
         public String toString() {
-            return String.format("<%s, '%s', Line: %d, Col: %d>", 
+            if (isError) {
+                return String.format("ERROR: %s [%s] | Line: %d | Column: %d",
+                                   errorMessage, lexeme, line, column);
+            }
+            return String.format("<%s, '%s', Line: %d, Col: %d>",
                                type, lexeme, line, column);
         }
     }
@@ -744,7 +765,7 @@ class Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { throw new Error("Illegal character <" + yytext() + "> at line " + (yyline+1) + ", column " + (yycolumn+1));
+            { return error("Illegal character");
             } 
             // fall through
           case 57: break;

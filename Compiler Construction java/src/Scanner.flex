@@ -29,6 +29,11 @@ import java.io.*;
         return new Token(type, yytext(), value, yyline + 1, yycolumn + 1);
     }
     
+    /* Helper method to create error tokens */
+    private Token error(String message) {
+        return Token.error(message, yytext(), yyline + 1, yycolumn + 1);
+    }
+
     /* Token class to represent lexical tokens */
     public static class Token {
         public String type;
@@ -36,26 +41,42 @@ import java.io.*;
         public Object value;
         public int line;
         public int column;
-        
+        public boolean isError;
+        public String errorMessage;
+
         public Token(String type, String lexeme, int line, int column) {
             this.type = type;
             this.lexeme = lexeme;
             this.value = lexeme;
             this.line = line;
             this.column = column;
+            this.isError = false;
         }
-        
+
         public Token(String type, String lexeme, Object value, int line, int column) {
             this.type = type;
             this.lexeme = lexeme;
             this.value = value;
             this.line = line;
             this.column = column;
+            this.isError = false;
         }
-        
+
+        // Static factory method for error tokens
+        public static Token error(String errorMessage, String lexeme, int line, int column) {
+            Token token = new Token("ERROR", lexeme, line, column);
+            token.isError = true;
+            token.errorMessage = errorMessage;
+            return token;
+        }
+
         @Override
         public String toString() {
-            return String.format("<%s, '%s', Line: %d, Col: %d>", 
+            if (isError) {
+                return String.format("ERROR: %s [%s] | Line: %d | Column: %d",
+                                   errorMessage, lexeme, line, column);
+            }
+            return String.format("<%s, '%s', Line: %d, Col: %d>",
                                type, lexeme, line, column);
         }
     }
@@ -196,5 +217,5 @@ MULTI_COMMENT   = #\*([^*]|\*+[^*#])*\*+#
 /* Priority 12: Whitespace (skip but track line numbers) */
 {WHITESPACE}            { /* Skip whitespace, line/column tracking is automatic */ }
 
-/* Error handling: Any unmatched character */
-.                       { throw new Error("Illegal character <" + yytext() + "> at line " + (yyline+1) + ", column " + (yycolumn+1)); }
+/* Error handling: Any unmatched character - return error token and continue */
+.                       { return error("Illegal character"); }

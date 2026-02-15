@@ -571,26 +571,113 @@ Multiline comments: 0 blocks.
 
 		 <<<<<<<<<<<<<<<<<  Test4 >>>>>>>>>>>>>>>>:
 
+SyntaxError: Identifier must begin with an uppercase letter. [int] | line: 1 | Column: 1
+SyntaxError: Identifier must begin with an uppercase letter. [invalidStart] | line: 1 | Column: 5
+SyntaxError: Identifier must have char_size <= 31. [VERYLONGIDENTIFIERNAMEEXCEEDINGTHIRTYCHARACTERS123] | line: 3 | Column: 5
+SyntaxError: Invalid float. [10] | line: 5 | Column: 9
+SyntaxError: Invalid float. [2] | line: 6 | Column: 11
+SyntaxError: Identifier must begin with an uppercase letter. [e] | line: 6 | Column: 13
+SyntaxError: Invalid Exponent Syntax. line: 7 | Column: 11
+SyntaxError: Invalid char. line: 9 | Column: 10
+SyntaxError: Invalid char. line: 9 | Column: 13
+SyntaxError: Invalid char. line: 10 | Column: 10
+SyntaxError: Identifier must begin with an uppercase letter. [bad] | line: 12 | Column: 51
+SyntaxError: Identifier must begin with an uppercase letter. [string] | line: 12 | Column: 55
+SyntaxError: Unknown Symbol Found. [$] | line: 14 | Column: 1
+SyntaxError: Identifier must begin with an uppercase letter. [illegal] | line: 14 | Column: 2
+SyntaxError: Unknown Symbol Found. [@] | line: 15 | Column: 1
+SyntaxError: Identifier must begin with an uppercase letter. [invalid] | line: 15 | Column: 2
+SyntaxError: Multi-Line comment not closed properly. line: 18
 
 -----------------------------------------
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 1 | Column: 17
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 3 | Column: 1
+
+Token type: TOK_EQ | Lexeme: = | Line: 3 | Column: 56
+
+Token type: TOK_INTEGER | Lexeme: 10 | Line: 3 | Column: 58
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 3 | Column: 60
+
+Token type: TOK_IDENTIFIER | Lexeme: INT | Line: 5 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: A | Line: 5 | Column: 5
+
+Token type: TOK_EQ | Lexeme: = | Line: 5 | Column: 7
+
+Token type: TOK_DOT | Lexeme: . | Line: 5 | Column: 11
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 5 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: FLOAT | Line: 6 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: B | Line: 6 | Column: 7
+
+Token type: TOK_EQ | Lexeme: = | Line: 6 | Column: 9
+
+Token type: TOK_DOT | Lexeme: . | Line: 6 | Column: 12
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 6 | Column: 14
+
+Token type: TOK_IDENTIFIER | Lexeme: FLOAT | Line: 7 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: C | Line: 7 | Column: 7
+
+Token type: TOK_EQ | Lexeme: = | Line: 7 | Column: 9
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 7 | Column: 16
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 9 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: X | Line: 9 | Column: 6
+
+Token type: TOK_EQ | Lexeme: = | Line: 9 | Column: 8
+
+Token type: TOK_IDENTIFIER | Lexeme: B | Line: 9 | Column: 12
+
+Token type: TOK_IDENTIFIER | Lexeme: CHAR | Line: 10 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: Y | Line: 10 | Column: 6
+
+Token type: TOK_EQ | Lexeme: = | Line: 10 | Column: 8
+
+Token type: TOK_IDENTIFIER | Lexeme: STRING | Line: 12 | Column: 1
+
+Token type: TOK_IDENTIFIER | Lexeme: S1 | Line: 12 | Column: 8
+
+Token type: TOK_EQ | Lexeme: = | Line: 12 | Column: 11
+
+Token type: TOK_STRING | Lexeme: "Unclosed string
+STRING S2 = " | Line: 12 | Column: 13
+
+Token type: TOK_IDENTIFIER | Lexeme: Another | Line: 12 | Column: 43
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 12 | Column: 61
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 14 | Column: 9
+
+Token type: TOK_SEMICOLON | Lexeme: ; | Line: 15 | Column: 9
 
 
 -----------------------------------------
 Stats: 
-Total Tokens: 0 | Total Lines: 21
+Total Tokens: 34 | Total Lines: 18
 
 -----------------------------------------
 
-Singleline comments: 0 lines.
+Singleline comments: 1 lines.
+Comment 1: | Line# 1
 
 -----------------------------------------
 
-Multiline comments: 1 blocks.
-Block 1: | Line# 1 | Block Size: 20
+Multiline comments: 0 blocks.
 
 -----------------------------------------
 
-{}
+{A=1, FLOAT=2, B=2, C=1, "Unclosed string
+STRING S2 = "=1, CHAR=2, INT=2, .=2, X=1, Y=1, STRING=1, ;=8, ==7, S1=1, 10=1, Another=1}
 
 -----------------------------------------
 
