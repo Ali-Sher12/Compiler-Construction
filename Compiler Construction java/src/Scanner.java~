@@ -343,7 +343,7 @@ class Scanner {
     
     /* Helper method to create error tokens */
     private Token error(String message) {
-        return new Token(message, yytext(), yyline + 1, yycolumn + 1);
+        return Token.error(message, yytext(), yyline + 1, yycolumn + 1);
     }
 
     /* Token class to represent lexical tokens */
@@ -374,15 +374,12 @@ class Scanner {
             this.isError = false;
         }
 
-        // Constructor for error tokens
-        public Token(String errorMessage, String lexeme, int line, int column) {
-            this.type = "ERROR";
-            this.lexeme = lexeme;
-            this.value = lexeme;
-            this.line = line;
-            this.column = column;
-            this.isError = true;
-            this.errorMessage = errorMessage;
+        // Static factory method for error tokens
+        public static Token error(String errorMessage, String lexeme, int line, int column) {
+            Token token = new Token("ERROR", lexeme, line, column);
+            token.isError = true;
+            token.errorMessage = errorMessage;
+            return token;
         }
 
         @Override
