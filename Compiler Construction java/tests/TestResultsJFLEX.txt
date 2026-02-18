@@ -277,101 +277,104 @@ ERROR: Illegal character [d] | Line: 1 | Column: 11
 <TOK_EQ, '=', Line: 3, Col: 56>
 <TOK_INTEGER, '10', Line: 3, Col: 58>
 <TOK_SEMICOLON, ';', Line: 3, Col: 60>
-<TOK_IDENTIFIER, 'INT', Line: 5, Col: 1>
-<TOK_IDENTIFIER, 'A', Line: 5, Col: 5>
-<TOK_EQ, '=', Line: 5, Col: 7>
-<TOK_INTEGER, '10', Line: 5, Col: 9>
-<TOK_DOT, '.', Line: 5, Col: 11>
-<TOK_SEMICOLON, ';', Line: 5, Col: 12>
-<TOK_IDENTIFIER, 'FLOAT', Line: 6, Col: 1>
-<TOK_IDENTIFIER, 'B', Line: 6, Col: 7>
-<TOK_EQ, '=', Line: 6, Col: 9>
-<TOK_INTEGER, '2', Line: 6, Col: 11>
-<TOK_DOT, '.', Line: 6, Col: 12>
-ERROR: Illegal character [e] | Line: 6 | Column: 13
-<TOK_SEMICOLON, ';', Line: 6, Col: 14>
-<TOK_IDENTIFIER, 'FLOAT', Line: 7, Col: 1>
-<TOK_IDENTIFIER, 'C', Line: 7, Col: 7>
-<TOK_EQ, '=', Line: 7, Col: 9>
-<TOK_FLOAT, '3.5', Line: 7, Col: 11>
-ERROR: Illegal character [e] | Line: 7 | Column: 14
-<TOK_PLUS, '+', Line: 7, Col: 15>
-<TOK_SEMICOLON, ';', Line: 7, Col: 16>
-<TOK_IDENTIFIER, 'CHAR', Line: 9, Col: 1>
-<TOK_IDENTIFIER, 'X', Line: 9, Col: 6>
-<TOK_EQ, '=', Line: 9, Col: 8>
-ERROR: Illegal character ['] | Line: 9 | Column: 10
-<TOK_IDENTIFIER, 'AB', Line: 9, Col: 11>
-ERROR: Illegal character ['] | Line: 9 | Column: 13
-<TOK_SEMICOLON, ';', Line: 9, Col: 14>
-<TOK_IDENTIFIER, 'CHAR', Line: 10, Col: 1>
-<TOK_IDENTIFIER, 'Y', Line: 10, Col: 6>
-<TOK_EQ, '=', Line: 10, Col: 8>
-ERROR: Illegal character ['] | Line: 10 | Column: 10
-<TOK_SEMICOLON, ';', Line: 10, Col: 11>
-<TOK_IDENTIFIER, 'STRING', Line: 12, Col: 1>
-<TOK_IDENTIFIER, 'S1', Line: 12, Col: 8>
-<TOK_EQ, '=', Line: 12, Col: 11>
-ERROR: Illegal character ["] | Line: 12 | Column: 13
-<TOK_IDENTIFIER, 'Unclosed', Line: 12, Col: 14>
-ERROR: Illegal character [s] | Line: 12 | Column: 23
-ERROR: Illegal character [t] | Line: 12 | Column: 24
-ERROR: Illegal character [r] | Line: 12 | Column: 25
-ERROR: Illegal character [i] | Line: 12 | Column: 26
-ERROR: Illegal character [n] | Line: 12 | Column: 27
-ERROR: Illegal character [g] | Line: 12 | Column: 28
-<TOK_IDENTIFIER, 'STRING', Line: 13, Col: 1>
-<TOK_IDENTIFIER, 'S2', Line: 13, Col: 8>
-<TOK_EQ, '=', Line: 13, Col: 11>
-ERROR: Illegal character ["] | Line: 13 | Column: 13
-<TOK_IDENTIFIER, 'Another', Line: 13, Col: 14>
-ERROR: Illegal character [b] | Line: 13 | Column: 22
-ERROR: Illegal character [a] | Line: 13 | Column: 23
-ERROR: Illegal character [d] | Line: 13 | Column: 24
-ERROR: Illegal character [s] | Line: 13 | Column: 26
-ERROR: Illegal character [t] | Line: 13 | Column: 27
-ERROR: Illegal character [r] | Line: 13 | Column: 28
-ERROR: Illegal character [i] | Line: 13 | Column: 29
-ERROR: Illegal character [n] | Line: 13 | Column: 30
-ERROR: Illegal character [g] | Line: 13 | Column: 31
-<TOK_SEMICOLON, ';', Line: 13, Col: 32>
-ERROR: Illegal character [$] | Line: 15 | Column: 1
-ERROR: Illegal character [i] | Line: 15 | Column: 2
-ERROR: Illegal character [l] | Line: 15 | Column: 3
-ERROR: Illegal character [l] | Line: 15 | Column: 4
-ERROR: Illegal character [e] | Line: 15 | Column: 5
-ERROR: Illegal character [g] | Line: 15 | Column: 6
-ERROR: Illegal character [a] | Line: 15 | Column: 7
-ERROR: Illegal character [l] | Line: 15 | Column: 8
-<TOK_SEMICOLON, ';', Line: 15, Col: 9>
-ERROR: Illegal character [@] | Line: 16 | Column: 1
-ERROR: Illegal character [i] | Line: 16 | Column: 2
-ERROR: Illegal character [n] | Line: 16 | Column: 3
-ERROR: Illegal character [v] | Line: 16 | Column: 4
-ERROR: Illegal character [a] | Line: 16 | Column: 5
-ERROR: Illegal character [l] | Line: 16 | Column: 6
-ERROR: Illegal character [i] | Line: 16 | Column: 7
-ERROR: Illegal character [d] | Line: 16 | Column: 8
-<TOK_SEMICOLON, ';', Line: 16, Col: 9>
-ERROR: Illegal character [#] | Line: 18 | Column: 1
-<TOK_STAR, '*', Line: 18, Col: 2>
-<TOK_IDENTIFIER, 'Unclosed', Line: 18, Col: 4>
-ERROR: Illegal character [m] | Line: 18 | Column: 13
-ERROR: Illegal character [u] | Line: 18 | Column: 14
-ERROR: Illegal character [l] | Line: 18 | Column: 15
-ERROR: Illegal character [t] | Line: 18 | Column: 16
-ERROR: Illegal character [i] | Line: 18 | Column: 17
-ERROR: Illegal character [l] | Line: 18 | Column: 18
-ERROR: Illegal character [i] | Line: 18 | Column: 19
-ERROR: Illegal character [n] | Line: 18 | Column: 20
-ERROR: Illegal character [e] | Line: 18 | Column: 21
-ERROR: Illegal character [c] | Line: 18 | Column: 23
-ERROR: Illegal character [o] | Line: 18 | Column: 24
-ERROR: Illegal character [m] | Line: 18 | Column: 25
-ERROR: Illegal character [m] | Line: 18 | Column: 26
-ERROR: Illegal character [e] | Line: 18 | Column: 27
-ERROR: Illegal character [n] | Line: 18 | Column: 28
-ERROR: Illegal character [t] | Line: 18 | Column: 29
+<TOK_INTEGER, '2', Line: 5, Col: 1>
+<TOK_IDENTIFIER, 'Float', Line: 5, Col: 2>
+ERROR: Illegal character [a] | Line: 5 | Column: 8
+<TOK_IDENTIFIER, 'INT', Line: 7, Col: 1>
+<TOK_IDENTIFIER, 'A', Line: 7, Col: 5>
+<TOK_EQ, '=', Line: 7, Col: 7>
+<TOK_INTEGER, '10', Line: 7, Col: 9>
+<TOK_DOT, '.', Line: 7, Col: 11>
+<TOK_SEMICOLON, ';', Line: 7, Col: 12>
+<TOK_IDENTIFIER, 'FLOAT', Line: 8, Col: 1>
+<TOK_IDENTIFIER, 'B', Line: 8, Col: 7>
+<TOK_EQ, '=', Line: 8, Col: 9>
+<TOK_INTEGER, '2', Line: 8, Col: 11>
+<TOK_DOT, '.', Line: 8, Col: 12>
+ERROR: Illegal character [e] | Line: 8 | Column: 13
+<TOK_SEMICOLON, ';', Line: 8, Col: 14>
+<TOK_IDENTIFIER, 'FLOAT', Line: 9, Col: 1>
+<TOK_IDENTIFIER, 'C', Line: 9, Col: 7>
+<TOK_EQ, '=', Line: 9, Col: 9>
+<TOK_FLOAT, '3.5', Line: 9, Col: 11>
+ERROR: Illegal character [e] | Line: 9 | Column: 14
+<TOK_PLUS, '+', Line: 9, Col: 15>
+<TOK_SEMICOLON, ';', Line: 9, Col: 16>
+<TOK_IDENTIFIER, 'CHAR', Line: 11, Col: 1>
+<TOK_IDENTIFIER, 'X', Line: 11, Col: 6>
+<TOK_EQ, '=', Line: 11, Col: 8>
+ERROR: Illegal character ['] | Line: 11 | Column: 10
+<TOK_IDENTIFIER, 'AB', Line: 11, Col: 11>
+ERROR: Illegal character ['] | Line: 11 | Column: 13
+<TOK_SEMICOLON, ';', Line: 11, Col: 14>
+<TOK_IDENTIFIER, 'CHAR', Line: 12, Col: 1>
+<TOK_IDENTIFIER, 'Y', Line: 12, Col: 6>
+<TOK_EQ, '=', Line: 12, Col: 8>
+ERROR: Illegal character ['] | Line: 12 | Column: 10
+<TOK_SEMICOLON, ';', Line: 12, Col: 11>
+<TOK_IDENTIFIER, 'STRING', Line: 14, Col: 1>
+<TOK_IDENTIFIER, 'S1', Line: 14, Col: 8>
+<TOK_EQ, '=', Line: 14, Col: 11>
+ERROR: Illegal character ["] | Line: 14 | Column: 13
+<TOK_IDENTIFIER, 'Unclosed', Line: 14, Col: 14>
+ERROR: Illegal character [s] | Line: 14 | Column: 23
+ERROR: Illegal character [t] | Line: 14 | Column: 24
+ERROR: Illegal character [r] | Line: 14 | Column: 25
+ERROR: Illegal character [i] | Line: 14 | Column: 26
+ERROR: Illegal character [n] | Line: 14 | Column: 27
+ERROR: Illegal character [g] | Line: 14 | Column: 28
+<TOK_IDENTIFIER, 'STRING', Line: 15, Col: 1>
+<TOK_IDENTIFIER, 'S2', Line: 15, Col: 8>
+<TOK_EQ, '=', Line: 15, Col: 11>
+ERROR: Illegal character ["] | Line: 15 | Column: 13
+<TOK_IDENTIFIER, 'Another', Line: 15, Col: 14>
+ERROR: Illegal character [b] | Line: 15 | Column: 22
+ERROR: Illegal character [a] | Line: 15 | Column: 23
+ERROR: Illegal character [d] | Line: 15 | Column: 24
+ERROR: Illegal character [s] | Line: 15 | Column: 26
+ERROR: Illegal character [t] | Line: 15 | Column: 27
+ERROR: Illegal character [r] | Line: 15 | Column: 28
+ERROR: Illegal character [i] | Line: 15 | Column: 29
+ERROR: Illegal character [n] | Line: 15 | Column: 30
+ERROR: Illegal character [g] | Line: 15 | Column: 31
+<TOK_SEMICOLON, ';', Line: 15, Col: 32>
+ERROR: Illegal character [$] | Line: 17 | Column: 1
+ERROR: Illegal character [i] | Line: 17 | Column: 2
+ERROR: Illegal character [l] | Line: 17 | Column: 3
+ERROR: Illegal character [l] | Line: 17 | Column: 4
+ERROR: Illegal character [e] | Line: 17 | Column: 5
+ERROR: Illegal character [g] | Line: 17 | Column: 6
+ERROR: Illegal character [a] | Line: 17 | Column: 7
+ERROR: Illegal character [l] | Line: 17 | Column: 8
+<TOK_SEMICOLON, ';', Line: 17, Col: 9>
+ERROR: Illegal character [@] | Line: 18 | Column: 1
+ERROR: Illegal character [i] | Line: 18 | Column: 2
+ERROR: Illegal character [n] | Line: 18 | Column: 3
+ERROR: Illegal character [v] | Line: 18 | Column: 4
+ERROR: Illegal character [a] | Line: 18 | Column: 5
+ERROR: Illegal character [l] | Line: 18 | Column: 6
+ERROR: Illegal character [i] | Line: 18 | Column: 7
+ERROR: Illegal character [d] | Line: 18 | Column: 8
+<TOK_SEMICOLON, ';', Line: 18, Col: 9>
+ERROR: Illegal character [#] | Line: 20 | Column: 1
+<TOK_STAR, '*', Line: 20, Col: 2>
+<TOK_IDENTIFIER, 'Unclosed', Line: 20, Col: 4>
+ERROR: Illegal character [m] | Line: 20 | Column: 13
+ERROR: Illegal character [u] | Line: 20 | Column: 14
+ERROR: Illegal character [l] | Line: 20 | Column: 15
+ERROR: Illegal character [t] | Line: 20 | Column: 16
+ERROR: Illegal character [i] | Line: 20 | Column: 17
+ERROR: Illegal character [l] | Line: 20 | Column: 18
+ERROR: Illegal character [i] | Line: 20 | Column: 19
+ERROR: Illegal character [n] | Line: 20 | Column: 20
+ERROR: Illegal character [e] | Line: 20 | Column: 21
+ERROR: Illegal character [c] | Line: 20 | Column: 23
+ERROR: Illegal character [o] | Line: 20 | Column: 24
+ERROR: Illegal character [m] | Line: 20 | Column: 25
+ERROR: Illegal character [m] | Line: 20 | Column: 26
+ERROR: Illegal character [e] | Line: 20 | Column: 27
+ERROR: Illegal character [n] | Line: 20 | Column: 28
+ERROR: Illegal character [t] | Line: 20 | Column: 29
 
 
 		 <<<<<<<<<<<<<<<<<  Test5 >>>>>>>>>>>>>>>>:

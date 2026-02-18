@@ -2,6 +2,8 @@ int invalidStart;         ## lowercase identifier (error)
 
 INT VERYLONGIDENTIFIERNAMEEXCEEDINGTHIRTYCHARACTERS123 = 10;
 
+2Float a
+
 INT A = 10.;
 FLOAT B = 2.e;
 FLOAT C = 3.5e+;
