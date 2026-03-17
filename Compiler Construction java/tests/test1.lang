@@ -3,6 +3,7 @@ INT MAIN() {
     FLOAT B = 3.14;
     FLOAT C = 2.5e+10;
     CHAR D = 'X';
+    abdullah = "Good person"
     STRING S = "HELLO";
 ##    condition Condition cOndition
     A = A + 1;

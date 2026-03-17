@@ -1,0 +1,30 @@
+TABLE_BEGIN
+Expr,id=Term ExprPrime
+Expr,(=Term ExprPrime
+ExprPrime,+=+ Term ExprPrime
+ExprPrime,)=epsilon
+ExprPrime,$=epsilon
+Term,id=Factor TermPrime
+Term,(=Factor TermPrime
+TermPrime,*=* Factor TermPrime
+TermPrime,+=epsilon
+TermPrime,)=epsilon
+TermPrime,$=epsilon
+Factor,id=id
+Factor,(=( Expr )
+TABLE_END
+TERMINALS_BEGIN
+id
++
+*
+(
+)
+$
+TERMINALS_END
+NONTERMINALS_BEGIN
+Expr
+ExprPrime
+Term
+TermPrime
+Factor
+NONTERMINALS_END

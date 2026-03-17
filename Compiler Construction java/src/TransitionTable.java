@@ -11,7 +11,7 @@ public class TransitionTable {
         TransitionTable_ = new ArrayList<ArrayList<Integer>>();
         ColumnIdentifiers = new ArrayList<String>();
         ColumnIdentifiers.add("[0-9]");
-        ColumnIdentifiers.add("[Z-Z]");
+        ColumnIdentifiers.add("[A-Z]");
         ColumnIdentifiers.add("[a-z]");
         ColumnIdentifiers.add("e");
         ColumnIdentifiers.add("E");
@@ -25,7 +25,6 @@ public class TransitionTable {
         ColumnIdentifiers.add("!");
         ColumnIdentifiers.add("True");
         ColumnIdentifiers.add("False");
-
         // will set it when I make LL1 parser
     }
 }
