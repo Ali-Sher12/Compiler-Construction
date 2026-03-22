@@ -1,12 +1,14 @@
 import java.io.*;
 import java.util.*;
-import java.nio.file.*;
 
 class Main {
 
-    static final String OUTPUT_FILE = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseResults.txt";
-    static final String PARSE_TABLE = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt";
-    static final String INPUT_FILE  = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/test1.lang";
+    // ── FILE PATHS ────────────────────────────────────────────
+    static final String RAW_GRAMMAR      = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/RawGrammar.txt";
+    static final String PROCESSED_GRAMMAR= "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ProcessedGrammar1.txt";
+    static final String PARSE_TABLE      = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt";
+    static final String INPUT_FILE       = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/test4.lang";
+    static final String OUTPUT_FILE      = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseResults.txt";
 
     public static void main(String[] args) {
 
@@ -19,247 +21,142 @@ class Main {
             System.exit(1);
         }
 
-        System.out.println("\n\n\t\t <<<<<<<<<<<<<<<<< LL(1) Parser Results >>>>>>>>>>>>>>>>:\n");
+        System.out.println("\n\t\t <<<<<<<<<<<<<<<<<  Full Compiler Pipeline  >>>>>>>>>>>>>>>>>\n");
 
-        // ── RESOLVE FILES: use args if provided, else use hardcoded defaults ──
-        String parseTableFile = (args.length > 0) ? args[0] : PARSE_TABLE;
-        String inputFile      = (args.length > 1) ? args[1] : INPUT_FILE;
+        // ════════════════════════════════════════════════════════
+        // STAGE 1: Grammar Transformation
+        //   RawGrammar → Left Factoring → Left Recursion Removal
+        //   → ProcessedGrammar1.txt
+        // ════════════════════════════════════════════════════════
+        System.out.println("=" .repeat(60));
+        System.out.println("  STAGE 1: Grammar Transformation");
+        System.out.println("=".repeat(60));
 
-        // ── STEP 1: Load Parse Table ──────────────────────────
+        Grammar grammar = new Grammar();
+        try {
+            grammar.loadFromFile(RAW_GRAMMAR);
+            System.out.println("[OK] Raw grammar loaded from: " + RAW_GRAMMAR);
+
+            System.out.println("\n[Original Grammar]");
+            grammar.printGrammar();
+
+            grammar.eliminateLeftFactoring();
+            System.out.println("\n[After Left Factoring]");
+            grammar.printGrammar();
+
+            grammar.eliminateLeftRecursion();
+            System.out.println("\n[After Left Recursion Removal]");
+            grammar.printGrammar();
+
+            grammar.exportToFile(PROCESSED_GRAMMAR);
+            System.out.println("\n[OK] Processed grammar saved to: " + PROCESSED_GRAMMAR);
+
+        } catch (IOException e) {
+            System.out.println("[ERROR] Grammar transformation failed: " + e.getMessage());
+            System.exit(1);
+        }
+
+        // ════════════════════════════════════════════════════════
+        // STAGE 2: FIRST / FOLLOW Sets + Parse Table Construction
+        //   ProcessedGrammar1.txt → ParseTable.txt
+        // ════════════════════════════════════════════════════════
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("  STAGE 2: FIRST/FOLLOW + Parse Table");
+        System.out.println("=".repeat(60));
+
+        FirstFollow ff = new FirstFollow(grammar);
+        ff.compute();
+        ff.printSets();
+
+        ParseTableBuilder builder = new ParseTableBuilder(grammar, ff);
+        builder.build();
+        builder.print();
+
+        try {
+            builder.writeToFile(PARSE_TABLE);
+        } catch (IOException e) {
+            System.out.println("[ERROR] Could not write ParseTable.txt: " + e.getMessage());
+            System.exit(1);
+        }
+
+        if (!builder.isLL1()) {
+            System.out.println("[ERROR] Grammar is NOT LL(1) — cannot parse.");
+            for (String c : builder.getConflicts()) System.out.println("  " + c);
+            System.exit(1);
+        }
+
+        // ════════════════════════════════════════════════════════
+        // STAGE 3: Load Parse Table
+        // ════════════════════════════════════════════════════════
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("  STAGE 3: Load Parse Table");
+        System.out.println("=".repeat(60));
+
         ParseTableReader tableReader = new ParseTableReader();
         try {
-            tableReader.loadTable(parseTableFile);
-            System.out.println("[OK] Parse table loaded from: " + parseTableFile);
+            tableReader.loadTable(PARSE_TABLE);
+            System.out.println("[OK] Parse table loaded from: " + PARSE_TABLE);
             tableReader.printTable();
         } catch (IOException e) {
             System.out.println("[ERROR] Could not load parse table: " + e.getMessage());
             System.exit(1);
         }
 
-        // ── STEP 2: Setup Error Handler ───────────────────────
-        // FOLLOW sets — Member 2 will eventually write these into ParseTable.txt
-        // For now they are hardcoded here
-        HashMap<String, Set<String>> followSets = new HashMap<>();
-        followSets.put("Expr",       new HashSet<>(Arrays.asList("$", ")")));
-        followSets.put("ExprPrime",  new HashSet<>(Arrays.asList("$", ")")));
-        followSets.put("Term",       new HashSet<>(Arrays.asList("+", ")", "$")));
-        followSets.put("TermPrime",  new HashSet<>(Arrays.asList("+", ")", "$")));
-        followSets.put("Factor",     new HashSet<>(Arrays.asList("*", "+", ")", "$")));
+        // ════════════════════════════════════════════════════════
+        // STAGE 4: Tokenize using Lexer
+        // ════════════════════════════════════════════════════════
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("  STAGE 4: Lexer Tokenization");
+        System.out.println("=".repeat(60));
 
-        // ── STEP 3: Read and parse each input string ──────────
+        ArrayList<Token> tokens = null;
         try {
-            BufferedReader br = new BufferedReader(new FileReader(inputFile));
-            String line;
-            int stringNumber = 1;
-
-            while ((line = br.readLine()) != null) {
-                line = line.trim();
-                if (line.isEmpty() || line.startsWith("#")) continue;
-
-                System.out.println("\n" + "=".repeat(60));
-                System.out.printf("Input String %d: %s%n", stringNumber++, line);
-                System.out.println("=".repeat(60));
-
-                // ── MODE A: Mock tokenizer (no real lexer needed for testing)
-                ArrayList<Token> tokens = mockTokenize(line);
-
-                // ── MODE B: Plug your real Lexer in here when ready
-                // ManualScanner ms = new ManualScanner(line);
-                // ms.tokenise();
-                // ArrayList<Token> tokens = ms.getTokenList();
-
-                if (tokens == null || tokens.isEmpty()) {
-                    System.out.println("[SKIP] Could not tokenize input.");
-                    continue;
-                }
-
-                // Fresh error handler + parser per input string
-                ErrorHandler eh = new ErrorHandler(tableReader.getTerminals());
-                eh.setFollowSets(followSets);
-                Parser p = new Parser(tableReader, eh);
-
-                // Parse → get parse tree root
-                TreeNode root = p.parse(tokens);
-
-                // Print parse tree only if accepted
-                if (root != null) {
-                    ParseTree tree = new ParseTree(root);
-                    tree.print();
-                    tree.printPreorder();
-                }
-            }
-
-            br.close();
-
-        } catch (IOException e) {
-            System.out.println("[ERROR] Could not read input file: " + e.getMessage());
+            ManualScanner ms = new ManualScanner(INPUT_FILE);
+            ms.tokenise();
+            tokens = ms.Tokens_List;
+            System.out.println("[OK] Lexer tokenized: " + INPUT_FILE);
+            System.out.println("[OK] Token count: " + tokens.size());
+        } catch (Exception e) {
+            System.out.println("[ERROR] Lexer failed: " + e.getMessage());
+            System.exit(1);
         }
 
-        System.out.println("\n\n\t\t ================ End of Parse Results ================\n");
-    }
-
-    // ─── MODE A: Mock tokenizer ───────────────────────────────
-    // Splits space-separated input string into Token objects
-    // Remove this when plugging in your real Lexer
-    private static ArrayList<Token> mockTokenize(String input) {
-        ArrayList<Token> tokens = new ArrayList<>();
-        String[] parts = input.split("\\s+");
-        int col = 1;
-
-        for (String part : parts) {
-            if (part.equals("$")) break; // parser adds $ automatically
-            tokens.add(new Token(mockGetType(part), part, 1, col));
-            col += part.length() + 1;
+        if (tokens == null || tokens.isEmpty()) {
+            System.out.println("[ERROR] No tokens produced by lexer.");
+            System.exit(1);
         }
 
-        return tokens;
-    }
+        // ════════════════════════════════════════════════════════
+        // STAGE 5: LL(1) Parsing
+        //   Tokens → Stack-based parser → Parse Tree
+        // ════════════════════════════════════════════════════════
+        System.out.println("\n" + "=".repeat(60));
+        System.out.println("  STAGE 5: LL(1) Parsing");
+        System.out.println("=".repeat(60));
 
-    private static String mockGetType(String s) {
-        switch (s) {
-            case "+":  return "TOK_PLUS";
-            case "*":  return "TOK_STAR";
-            case "(":  return "TOK_LPAREN";
-            case ")":  return "TOK_RPAREN";
-            case "-":  return "TOK_MINUS";
-            case "/":  return "TOK_DIV";
-            case "id": return "TOK_IDENTIFIER";
-            default:   return "TOK_IDENTIFIER";
+        // FOLLOW sets loaded from ParseTable.txt — no hardcoding
+        ErrorHandler eh = new ErrorHandler(tableReader.getTerminals());
+        eh.setFollowSets(tableReader.getFollowSets());
+
+        Parser parser  = new Parser(tableReader, eh);
+        TreeNode root  = parser.parse(tokens);
+
+        // Print parse tree if accepted
+        if (root != null) {
+            ParseTree tree = new ParseTree(root);
+            tree.print();
+            tree.printPreorder();
         }
+
+        // ── FINAL SUMMARY ─────────────────────────────────────
+        System.out.println("\n" + "=".repeat(60));
+        if (!eh.hasErrors()) {
+            System.out.println("  RESULT: Parsing SUCCESSFUL ✓");
+        } else {
+            System.out.println("  RESULT: Parsing completed with "
+                + eh.getErrorCount() + " error(s).");
+        }
+        System.out.println("=".repeat(60));
+        System.out.println("\n\t\t =================  End of Pipeline  =================\n");
     }
 }
-
-/*
-public class Main {
-
-    public static void main(String[] args) {
-
-        // ── ARGUMENT CHECK ────────────────────────────────────
-        if (args.length < 2) {
-            System.out.println("Usage: java Main <ParseTable.txt> <input.txt>");
-            System.exit(1);
-        }
-
-        String parseTableFile = args[0];
-        String inputFile      = args[1];
-
-        // ── STEP 1: Load Parse Table ──────────────────────────
-        ParseTableReader tableReader = new ParseTableReader();
-        try {
-            tableReader.loadTable(parseTableFile);
-            System.out.println("[OK] Parse table loaded from: " + parseTableFile);
-            tableReader.printTable();  // debug print
-        } catch (IOException e) {
-            System.out.println("[ERROR] Could not load parse table: " + e.getMessage());
-            System.exit(1);
-        }
-
-        // ── STEP 2: Setup Error Handler ───────────────────────
-        ErrorHandler errorHandler = new ErrorHandler(tableReader.getTerminals());
-
-        // Hardcode FOLLOW sets for this grammar
-        // (In full implementation, Member 2 writes these to ParseTable.txt too)
-        HashMap<String, Set<String>> followSets = new HashMap<>();
-        followSets.put("Expr",       new HashSet<>(Arrays.asList("$", ")")));
-        followSets.put("ExprPrime",  new HashSet<>(Arrays.asList("$", ")")));
-        followSets.put("Term",       new HashSet<>(Arrays.asList("+", ")", "$")));
-        followSets.put("TermPrime",  new HashSet<>(Arrays.asList("+", ")", "$")));
-        followSets.put("Factor",     new HashSet<>(Arrays.asList("*", "+", ")", "$")));
-        errorHandler.setFollowSets(followSets);
-
-        // ── STEP 3: Setup Parser ──────────────────────────────
-        Parser parser = new Parser(tableReader, errorHandler);
-
-        // ── STEP 4: Read input strings and parse each one ─────
-        // Two modes:
-        //   A) Read raw strings from input.txt and mock-tokenize them
-        //      (for testing without the full lexer)
-        //   B) Plug in your real Lexer tokens
-        //
-        // Mode A is active here. Swap in Mode B when lexer is ready.
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(inputFile));
-            String line;
-            int stringNumber = 1;
-
-            while ((line = br.readLine()) != null) {
-                line = line.trim();
-                if (line.isEmpty() || line.startsWith("#")) continue;
-
-                System.out.println("=".repeat(60));
-                System.out.printf("Input String %d: %s%n", stringNumber++, line);
-                System.out.println("=".repeat(60));
-
-                // MODE A: mock tokenize (space-split, no real lexer)
-                ArrayList<Token> tokens = mockTokenize(line, parser);
-
-                // MODE B: plug your lexer here instead
-                // Lexer lexer = new Lexer(line);
-                // ArrayList<Token> tokens = lexer.tokenize();
-
-                if (tokens == null) {
-                    System.out.println("[SKIP] Could not tokenize input.\n");
-                    continue;
-                }
-
-                // Reset error handler for each string
-                ErrorHandler eh = new ErrorHandler(tableReader.getTerminals());
-                eh.setFollowSets(followSets);
-                Parser p = new Parser(tableReader, eh);
-
-                // Parse and get tree
-                TreeNode root = p.parse(tokens);
-
-                // Print parse tree if accepted
-                if (root != null) {
-                    ParseTree tree = new ParseTree(root);
-                    tree.print();
-                    tree.printPreorder();
-                }
-
-                System.out.println();
-            }
-
-            br.close();
-
-        } catch (IOException e) {
-            System.out.println("[ERROR] Could not read input file: " + e.getMessage());
-        }
-    }
-
-    // -------------------------------------------------------
-    // MODE A: Mock tokenizer — splits input string by spaces
-    // and maps each token to a Token object
-    // Replace this with your real Lexer when ready
-    // -------------------------------------------------------
-    private static ArrayList<Token> mockTokenize(String input, Parser parser) {
-        ArrayList<Token> tokens = new ArrayList<>();
-        String[] parts = input.split("\\s+");
-        int col = 1;
-
-        for (String part : parts) {
-            if (part.equals("$")) break; // will be added by parser
-
-            String type = mockGetType(part);
-            tokens.add(new Token(type, part, 1, col));
-            col += part.length() + 1;
-        }
-
-        return tokens;
-    }
-
-    // Map raw string to a fake token type (for testing only)
-    private static String mockGetType(String s) {
-        switch (s) {
-            case "+":  return "TOK_PLUS";
-            case "*":  return "TOK_STAR";
-            case "(":  return "TOK_LPAREN";
-            case ")":  return "TOK_RPAREN";
-            case "-":  return "TOK_MINUS";
-            case "/":  return "TOK_DIV";
-            case "id": return "TOK_IDENTIFIER";
-            default:   return "TOK_IDENTIFIER"; // treat unknowns as identifiers
-        }
-    }
-}*/

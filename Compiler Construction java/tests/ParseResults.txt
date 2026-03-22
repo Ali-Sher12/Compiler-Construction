@@ -1,7 +1,64 @@
 
+		 <<<<<<<<<<<<<<<<<  Full Compiler Pipeline  >>>>>>>>>>>>>>>>>
 
-		 <<<<<<<<<<<<<<<<< LL(1) Parser Results >>>>>>>>>>>>>>>>:
+============================================================
+  STAGE 1: Grammar Transformation
+============================================================
+[OK] Raw grammar loaded from: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/RawGrammar.txt
 
+[Original Grammar]
+Expr -> Expr + Term | Term
+Term -> Term * Factor | Factor
+Factor -> ( Expr ) | id
+
+[After Left Factoring]
+Expr -> Expr + Term | Term
+Term -> Term * Factor | Factor
+Factor -> ( Expr ) | id
+
+[After Left Recursion Removal]
+Expr -> Term ExprPrime
+ExprPrime -> + Term ExprPrime | epsilon
+Term -> Factor TermPrime
+TermPrime -> * Factor TermPrime | epsilon
+Factor -> ( Expr ) | id
+
+[OK] Processed grammar saved to: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ProcessedGrammar1.txt
+
+============================================================
+  STAGE 2: FIRST/FOLLOW + Parse Table
+============================================================
+===== FIRST SETS =====
+  FIRST(Expr           ) = { (, id }
+  FIRST(ExprPrime      ) = { +, epsilon }
+  FIRST(Term           ) = { (, id }
+  FIRST(TermPrime      ) = { *, epsilon }
+  FIRST(Factor         ) = { (, id }
+
+===== FOLLOW SETS =====
+  FOLLOW(Expr           ) = { $, ) }
+  FOLLOW(ExprPrime      ) = { $, ) }
+  FOLLOW(Term           ) = { +, $, ) }
+  FOLLOW(TermPrime      ) = { +, $, ) }
+  FOLLOW(Factor         ) = { *, +, $, ) }
+
+===== LL(1) PARSING TABLE =====
+                 | +                     | *                     | (                     | )                     | id                    | $                     |
+  ---------------------------------------------------------------------------------------------------------------------------------------------------------
+  Expr           |                       |                       | Term ExprPrime        |                       | Term ExprPrime        |                       |
+  ExprPrime      | + Term ExprPrime      |                       |                       | epsilon               |                       | epsilon               |
+  Term           |                       |                       | Factor TermPrime      |                       | Factor TermPrime      |                       |
+  TermPrime      | epsilon               | * Factor TermPrime    |                       | epsilon               |                       | epsilon               |
+  Factor         |                       |                       | ( Expr )              |                       | id                    |                       |
+
+Grammar IS LL(1) -- no conflicts.
+================================
+
+[OK] ParseTable.txt written to: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt
+
+============================================================
+  STAGE 3: Load Parse Table
+============================================================
 [OK] Parse table loaded from: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt
 
 ========== LOADED PARSING TABLE ==========
@@ -22,693 +79,76 @@
 
 
 ============================================================
-Input String 1: INT MAIN() {
+  STAGE 4: Lexer Tokenization
+============================================================
+SyntaxError: Identifier must begin with an uppercase letter. [int] | line: 1 | Column: 1
+SyntaxError: Identifier must begin with an uppercase letter. [invalidStart] | line: 1 | Column: 5
+SyntaxError: Identifier must have char_size <= 31. [VERYLONGIDENTIFIERNAMEEXCEEDINGTHIRTYCHARACTERS123] | line: 3 | Column: 5
+SyntaxError: Identifier must begin with an uppercase letter. [a] | line: 5 | Column: 8
+SyntaxError: Invalid float. [10] | line: 7 | Column: 9
+SyntaxError: Invalid float. [2] | line: 8 | Column: 11
+SyntaxError: Identifier must begin with an uppercase letter. [e] | line: 8 | Column: 13
+SyntaxError: Invalid Exponent Syntax. line: 9 | Column: 11
+SyntaxError: Invalid char. line: 11 | Column: 10
+SyntaxError: Invalid char. line: 11 | Column: 13
+SyntaxError: Invalid char. line: 12 | Column: 10
+SyntaxError: Identifier must begin with an uppercase letter. [bad] | line: 14 | Column: 51
+SyntaxError: Identifier must begin with an uppercase letter. [string] | line: 14 | Column: 55
+SyntaxError: Unknown Symbol Found. [$] | line: 16 | Column: 1
+SyntaxError: Identifier must begin with an uppercase letter. [illegal] | line: 16 | Column: 2
+SyntaxError: Unknown Symbol Found. [@] | line: 17 | Column: 1
+SyntaxError: Identifier must begin with an uppercase letter. [invalid] | line: 17 | Column: 2
+SyntaxError: Multi-Line comment not closed properly. line: 20
+[OK] Lexer tokenized: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/test4.lang
+[OK] Token count: 36
+
+============================================================
+  STAGE 5: LL(1) Parsing
 ============================================================
 
 ========== PARSING TRACE ==========
 Step   | Stack (bottom -> top)               | Remaining Input           | Action
 ----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | INT MAIN() { $            |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | INT MAIN() { $            |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | INT MAIN() { $            |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | INT MAIN() { $            |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | MAIN() { $                | ParseError: No rule for <TermPrime> on input 'id' [MAIN()] | line: 1 | Column: 5
-  [Recovery] Skipping token [MAIN()]
-  [Recovery] Skipping token [{]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 2: INT A = 10;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | INT A = 10; $             |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | INT A = 10; $             |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | INT A = 10; $             |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | INT A = 10; $             |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | A = 10; $                 | ParseError: No rule for <TermPrime> on input 'id' [A] | line: 1 | Column: 5
+1      | $ Expr                              | ; INT = 10 ; 2 ...        | ParseError: No rule for <Expr> on input ';' [;] | line: 1 | Column: 17
+  [Recovery] Skipping token [;]
+  [Recovery] Skipping token [INT]
+  [Recovery] Skipping token [=]
+  [Recovery] Skipping token [10]
+  [Recovery] Skipping token [;]
+  [Recovery] Skipping token [2]
+  [Recovery] Skipping token [Float]
+  [Recovery] Skipping token [INT]
   [Recovery] Skipping token [A]
   [Recovery] Skipping token [=]
-  [Recovery] Skipping token [10;]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 3: FLOAT B = 3.14;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | FLOAT B = 3.14; $         |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | FLOAT B = 3.14; $         |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | FLOAT B = 3.14; $         |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | FLOAT B = 3.14; $         |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | B = 3.14; $               | ParseError: No rule for <TermPrime> on input 'id' [B] | line: 1 | Column: 7
+  [Recovery] Skipping token [.]
+  [Recovery] Skipping token [;]
+  [Recovery] Skipping token [FLOAT]
   [Recovery] Skipping token [B]
   [Recovery] Skipping token [=]
-  [Recovery] Skipping token [3.14;]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 4: FLOAT C = 2.5e+10;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | FLOAT C = 2.5e+10; $      |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | FLOAT C = 2.5e+10; $      |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | FLOAT C = 2.5e+10; $      |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | FLOAT C = 2.5e+10; $      |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | C = 2.5e+10; $            | ParseError: No rule for <TermPrime> on input 'id' [C] | line: 1 | Column: 7
+  [Recovery] Skipping token [.]
+  [Recovery] Skipping token [;]
+  [Recovery] Skipping token [FLOAT]
   [Recovery] Skipping token [C]
   [Recovery] Skipping token [=]
-  [Recovery] Skipping token [2.5e+10;]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 5: CHAR D = 'X';
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | CHAR D = 'X'; $           |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | CHAR D = 'X'; $           |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | CHAR D = 'X'; $           |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | CHAR D = 'X'; $           |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | D = 'X'; $                | ParseError: No rule for <TermPrime> on input 'id' [D] | line: 1 | Column: 6
-  [Recovery] Skipping token [D]
+  [Recovery] Skipping token [;]
+  [Recovery] Skipping token [CHAR]
+  [Recovery] Skipping token [X]
   [Recovery] Skipping token [=]
-  [Recovery] Skipping token ['X';]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 6: abdullah = "Good person"
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | abdullah = "Good person" $ |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | abdullah = "Good person" $ |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | abdullah = "Good person" $ |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | abdullah = "Good person" $ |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | = "Good person" $         | ParseError: No rule for <TermPrime> on input 'id' [=] | line: 1 | Column: 10
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token ["Good]
-  [Recovery] Skipping token [person"]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 7: STRING S = "HELLO";
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | STRING S = "HELLO"; $     |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | STRING S = "HELLO"; $     |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | STRING S = "HELLO"; $     |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | STRING S = "HELLO"; $     |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | S = "HELLO"; $            | ParseError: No rule for <TermPrime> on input 'id' [S] | line: 1 | Column: 8
-  [Recovery] Skipping token [S]
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token ["HELLO";]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 8: A = A + 1;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | A = A + 1; $              |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | A = A + 1; $              |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | A = A + 1; $              |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | A = A + 1; $              |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | = A + 1; $                | ParseError: No rule for <TermPrime> on input 'id' [=] | line: 1 | Column: 3
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token [A]
-  [Recovery] Resuming at [+]
-6      | $ ExprPrime                         | + 1; $                    |   Action : Expand ExprPrime -> + Term ExprPrime
-7      | $ ExprPrime Term +                  | + 1; $                    |   Action : Match '+'
-8      | $ ExprPrime Term                    | 1; $                      |   Action : Expand Term -> Factor TermPrime
-9      | $ ExprPrime TermPrime Factor        | 1; $                      |   Action : Expand Factor -> id
-10     | $ ExprPrime TermPrime id            | 1; $                      |   Action : Match 'id'
-11     | $ ExprPrime TermPrime               | $                         |   Action : Expand TermPrime -> epsilon
-12     | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-13     | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       |-- +
-    |       |-- Term
-    |       |   |-- Factor
-    |       |   |   +-- id
-    |       |   +-- TermPrime
-    |       |       +-- epsilon
-    |       +-- ExprPrime
-    |           +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime + Term Factor id TermPrime epsilon ExprPrime epsilon ExprPrime 
-
-============================================================
-Input String 9: A++;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | A++; $                    |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | A++; $                    |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | A++; $                    |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | A++; $                    |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | $                         |   Action : Expand TermPrime -> epsilon
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: String ACCEPTED ✓
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-        +-- epsilon
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime epsilon 
-
-============================================================
-Input String 10: A--;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | A--; $                    |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | A--; $                    |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | A--; $                    |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | A--; $                    |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | $                         |   Action : Expand TermPrime -> epsilon
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: String ACCEPTED ✓
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-        +-- epsilon
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime epsilon 
-
-============================================================
-Input String 11: A += 5;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | A += 5; $                 |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | A += 5; $                 |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | A += 5; $                 |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | A += 5; $                 |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | += 5; $                   | ParseError: No rule for <TermPrime> on input 'id' [+=] | line: 1 | Column: 3
-  [Recovery] Skipping token [+=]
-  [Recovery] Skipping token [5;]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 12: A -= 3;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | A -= 3; $                 |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | A -= 3; $                 |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | A -= 3; $                 |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | A -= 3; $                 |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | -= 3; $                   | ParseError: No rule for <TermPrime> on input 'id' [-=] | line: 1 | Column: 3
-  [Recovery] Skipping token [-=]
-  [Recovery] Skipping token [3;]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 13: A *= 2;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | A *= 2; $                 |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | A *= 2; $                 |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | A *= 2; $                 |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | A *= 2; $                 |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | *= 2; $                   | ParseError: No rule for <TermPrime> on input 'id' [*=] | line: 1 | Column: 3
-  [Recovery] Skipping token [*=]
-  [Recovery] Skipping token [2;]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 14: A /= 4;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | A /= 4; $                 |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | A /= 4; $                 |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | A /= 4; $                 |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | A /= 4; $                 |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | /= 4; $                   | ParseError: No rule for <TermPrime> on input 'id' [/=] | line: 1 | Column: 3
-  [Recovery] Skipping token [/=]
-  [Recovery] Skipping token [4;]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 15: A %= 2;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | A %= 2; $                 |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | A %= 2; $                 |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | A %= 2; $                 |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | A %= 2; $                 |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | %= 2; $                   | ParseError: No rule for <TermPrime> on input 'id' [%=] | line: 1 | Column: 3
-  [Recovery] Skipping token [%=]
-  [Recovery] Skipping token [2;]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 16: IF (A == 10 && B != 0 || A < 100) {
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | IF (A == 10 && B ...      |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | IF (A == 10 && B ...      |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | IF (A == 10 && B ...      |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | IF (A == 10 && B ...      |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | (A == 10 && B != ...      | ParseError: No rule for <TermPrime> on input 'id' [(A] | line: 1 | Column: 4
-  [Recovery] Skipping token [(A]
-  [Recovery] Skipping token [==]
-  [Recovery] Skipping token [10]
-  [Recovery] Skipping token [&&]
   [Recovery] Skipping token [B]
-  [Recovery] Skipping token [!=]
-  [Recovery] Skipping token [0]
-  [Recovery] Skipping token [||]
-  [Recovery] Skipping token [A]
-  [Recovery] Skipping token [<]
-  [Recovery] Skipping token [100)]
-  [Recovery] Skipping token [{]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 17: PRINT(A);
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | PRINT(A); $               |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | PRINT(A); $               |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | PRINT(A); $               |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | PRINT(A); $               |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | $                         |   Action : Expand TermPrime -> epsilon
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: String ACCEPTED ✓
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-        +-- epsilon
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime epsilon 
-
-============================================================
-Input String 18: }
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | } $                       |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | } $                       |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | } $                       |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | } $                       |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | $                         |   Action : Expand TermPrime -> epsilon
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: String ACCEPTED ✓
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-        +-- epsilon
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime epsilon 
-
-============================================================
-Input String 19: WHILE (A >= 0) {
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | WHILE (A >= 0) { $        |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | WHILE (A >= 0) { $        |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | WHILE (A >= 0) { $        |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | WHILE (A >= 0) { $        |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | (A >= 0) { $              | ParseError: No rule for <TermPrime> on input 'id' [(A] | line: 1 | Column: 7
-  [Recovery] Skipping token [(A]
-  [Recovery] Skipping token [>=]
-  [Recovery] Skipping token [0)]
-  [Recovery] Skipping token [{]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 20: A = A - 1;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | A = A - 1; $              |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | A = A - 1; $              |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | A = A - 1; $              |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | A = A - 1; $              |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | = A - 1; $                | ParseError: No rule for <TermPrime> on input 'id' [=] | line: 1 | Column: 3
+  [Recovery] Skipping token [CHAR]
+  [Recovery] Skipping token [Y]
   [Recovery] Skipping token [=]
-  [Recovery] Skipping token [A]
-  [Recovery] Skipping token [-]
-  [Recovery] Skipping token [1;]
+  [Recovery] Skipping token [STRING]
+  [Recovery] Skipping token [S1]
+  [Recovery] Skipping token [=]
+  [Recovery] Skipping token ["Unclosed string
+STRING S2 = "]
+  [Recovery] Skipping token [Another]
+  [Recovery] Skipping token [;]
+  [Recovery] Skipping token [;]
+  [Recovery] Skipping token [;]
   [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
+2      | $                                   | $                         |   Action : ACCEPT ✓
 ----------------------------------------------------------------------------------------------------
 Result: Parsing completed with 1 error(s).
 ====================================
@@ -716,113 +156,13 @@ Result: Parsing completed with 1 error(s).
 
 ========== PARSE TREE ==========
 Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
 =================================
 
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
+Preorder: Expr 
 
 ============================================================
-Input String 21: }
+  RESULT: Parsing completed with 1 error(s).
 ============================================================
 
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | } $                       |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | } $                       |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | } $                       |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | } $                       |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | $                         |   Action : Expand TermPrime -> epsilon
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: String ACCEPTED ✓
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-        +-- epsilon
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime epsilon 
-
-============================================================
-Input String 22: RETURN A;
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | RETURN A; $               |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | RETURN A; $               |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | RETURN A; $               |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | RETURN A; $               |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | A; $                      | ParseError: No rule for <TermPrime> on input 'id' [A;] | line: 1 | Column: 8
-  [Recovery] Skipping token [A;]
-  [Recovery] Resuming at [$]
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: Parsing completed with 1 error(s).
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime 
-
-============================================================
-Input String 23: }
-============================================================
-
-========== PARSING TRACE ==========
-Step   | Stack (bottom -> top)               | Remaining Input           | Action
-----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | } $                       |   Action : Expand Expr -> Term ExprPrime
-2      | $ ExprPrime Term                    | } $                       |   Action : Expand Term -> Factor TermPrime
-3      | $ ExprPrime TermPrime Factor        | } $                       |   Action : Expand Factor -> id
-4      | $ ExprPrime TermPrime id            | } $                       |   Action : Match 'id'
-5      | $ ExprPrime TermPrime               | $                         |   Action : Expand TermPrime -> epsilon
-6      | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
-7      | $                                   | $                         |   Action : ACCEPT ✓
-----------------------------------------------------------------------------------------------------
-Result: String ACCEPTED ✓
-====================================
-
-
-========== PARSE TREE ==========
-Expr
-    |-- Term
-    |   |-- Factor
-    |   |   +-- id
-    |   +-- TermPrime
-    |       +-- epsilon
-    +-- ExprPrime
-        +-- epsilon
-=================================
-
-Preorder: Expr Term Factor id TermPrime epsilon ExprPrime epsilon 
-
-
-		 ================ End of Parse Results ================
+		 =================  End of Pipeline  =================
 
