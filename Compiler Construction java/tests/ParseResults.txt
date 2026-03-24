@@ -1,86 +1,20 @@
 
-		 <<<<<<<<<<<<<<<<<  Full Compiler Pipeline  >>>>>>>>>>>>>>>>>
+----------------------------
+___Grammar Transformation___
+----------------------------
 
-============================================================
-  STAGE 1: Grammar Transformation
-============================================================
-[OK] Raw grammar loaded from: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/RawGrammar.txt
-
-[Original Grammar]
-Expr -> Expr + Term | Term
-Term -> Term * Factor | Factor
-Factor -> ( Expr ) | id
-
-[After Left Factoring]
-Expr -> Expr + Term | Term
-Term -> Term * Factor | Factor
-Factor -> ( Expr ) | id
-
-[After Left Recursion Removal]
-Expr -> Term ExprPrime
-ExprPrime -> + Term ExprPrime | epsilon
-Term -> Factor TermPrime
-TermPrime -> * Factor TermPrime | epsilon
-Factor -> ( Expr ) | id
-
-[OK] Processed grammar saved to: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ProcessedGrammar1.txt
-
-============================================================
-  STAGE 2: FIRST/FOLLOW + Parse Table
-============================================================
-===== FIRST SETS =====
-  FIRST(Expr           ) = { (, id }
-  FIRST(ExprPrime      ) = { +, epsilon }
-  FIRST(Term           ) = { (, id }
-  FIRST(TermPrime      ) = { *, epsilon }
-  FIRST(Factor         ) = { (, id }
-
-===== FOLLOW SETS =====
-  FOLLOW(Expr           ) = { $, ) }
-  FOLLOW(ExprPrime      ) = { $, ) }
-  FOLLOW(Term           ) = { +, $, ) }
-  FOLLOW(TermPrime      ) = { +, $, ) }
-  FOLLOW(Factor         ) = { *, +, $, ) }
-
-===== LL(1) PARSING TABLE =====
-                 | +                     | *                     | (                     | )                     | id                    | $                     |
-  ---------------------------------------------------------------------------------------------------------------------------------------------------------
-  Expr           |                       |                       | Term ExprPrime        |                       | Term ExprPrime        |                       |
-  ExprPrime      | + Term ExprPrime      |                       |                       | epsilon               |                       | epsilon               |
-  Term           |                       |                       | Factor TermPrime      |                       | Factor TermPrime      |                       |
-  TermPrime      | epsilon               | * Factor TermPrime    |                       | epsilon               |                       | epsilon               |
-  Factor         |                       |                       | ( Expr )              |                       | id                    |                       |
-
-Grammar IS LL(1) -- no conflicts.
-================================
-
+--------------------------------
+___First Follow & Parse Table___
+--------------------------------
 [OK] ParseTable.txt written to: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt
 
-============================================================
-  STAGE 3: Load Parse Table
-============================================================
-[OK] Parse table loaded from: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt
+-------------------------
+___Reading Parse Table___
+-------------------------
 
-========== LOADED PARSING TABLE ==========
-  M[Expr        , (   ] = Term ExprPrime
-  M[Expr        , id  ] = Term ExprPrime
-  M[ExprPrime   , $   ] = epsilon
-  M[ExprPrime   , )   ] = epsilon
-  M[ExprPrime   , +   ] = + Term ExprPrime
-  M[Term        , (   ] = Factor TermPrime
-  M[Term        , id  ] = Factor TermPrime
-  M[TermPrime   , $   ] = epsilon
-  M[TermPrime   , )   ] = epsilon
-  M[TermPrime   , *   ] = * Factor TermPrime
-  M[TermPrime   , +   ] = epsilon
-  M[Factor      , (   ] = ( Expr )
-  M[Factor      , id  ] = id
-==========================================
-
-
-============================================================
-  STAGE 4: Lexer Tokenization
-============================================================
+----------------
+___Tokenizing___
+----------------
 SyntaxError: Identifier must begin with an uppercase letter. [int] | line: 1 | Column: 1
 SyntaxError: Identifier must begin with an uppercase letter. [invalidStart] | line: 1 | Column: 5
 SyntaxError: Identifier must have char_size <= 31. [VERYLONGIDENTIFIERNAMEEXCEEDINGTHIRTYCHARACTERS123] | line: 3 | Column: 5
@@ -99,12 +33,10 @@ SyntaxError: Identifier must begin with an uppercase letter. [illegal] | line: 1
 SyntaxError: Unknown Symbol Found. [@] | line: 17 | Column: 1
 SyntaxError: Identifier must begin with an uppercase letter. [invalid] | line: 17 | Column: 2
 SyntaxError: Multi-Line comment not closed properly. line: 20
-[OK] Lexer tokenized: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/test4.lang
-[OK] Token count: 36
 
-============================================================
-  STAGE 5: LL(1) Parsing
-============================================================
+------------------------
+___The Actual Parsing___
+------------------------
 
 ========== PARSING TRACE ==========
 Step   | Stack (bottom -> top)               | Remaining Input           | Action
@@ -159,10 +91,6 @@ Expr
 =================================
 
 Preorder: Expr 
+Parsing completed with 1 error(s).
 
-============================================================
-  RESULT: Parsing completed with 1 error(s).
-============================================================
-
-		 =================  End of Pipeline  =================
-
+--------------------

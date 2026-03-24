@@ -4,159 +4,103 @@ import java.util.*;
 class Main {
 
     // ── FILE PATHS ────────────────────────────────────────────
-    static final String RAW_GRAMMAR      = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/RawGrammar.txt";
-    static final String PROCESSED_GRAMMAR= "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ProcessedGrammar1.txt";
-    static final String PARSE_TABLE      = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt";
-    static final String INPUT_FILE       = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/test4.lang";
-    static final String OUTPUT_FILE      = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseResults.txt";
+    static String RAW_GRAMMAR = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/RawGrammar.txt";
+    static String PROCESSED_GRAMMAR= "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ProcessedGrammar1.txt";
+    static String PARSE_TABLE = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt";
+    static String INPUT_FILE = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/test4.lang";
+    static String OUTPUT_FILE = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseResults.txt";
 
     public static void main(String[] args) {
-
-        // ── REDIRECT ALL OUTPUT TO ParseResults.txt ──────────
         try {
             PrintStream fileOut = new PrintStream(OUTPUT_FILE);
             System.setOut(fileOut);
-        } catch (FileNotFoundException e) {
-            System.err.println("[ERROR] Could not open output file: " + e.getMessage());
+        }
+        catch (FileNotFoundException e) {
             System.exit(1);
         }
 
-        System.out.println("\n\t\t <<<<<<<<<<<<<<<<<  Full Compiler Pipeline  >>>>>>>>>>>>>>>>>\n");
-
-        // ════════════════════════════════════════════════════════
-        // STAGE 1: Grammar Transformation
-        //   RawGrammar → Left Factoring → Left Recursion Removal
-        //   → ProcessedGrammar1.txt
-        // ════════════════════════════════════════════════════════
-        System.out.println("=" .repeat(60));
-        System.out.println("  STAGE 1: Grammar Transformation");
-        System.out.println("=".repeat(60));
-
+        // Parsing: Stage 1
+        System.out.println("\n----------------------------");
+        System.out.println("___Grammar Transformation___");
+        System.out.println("----------------------------");
         Grammar grammar = new Grammar();
         try {
             grammar.loadFromFile(RAW_GRAMMAR);
-            System.out.println("[OK] Raw grammar loaded from: " + RAW_GRAMMAR);
-
-            System.out.println("\n[Original Grammar]");
-            grammar.printGrammar();
-
-            grammar.eliminateLeftFactoring();
-            System.out.println("\n[After Left Factoring]");
-            grammar.printGrammar();
-
             grammar.eliminateLeftRecursion();
-            System.out.println("\n[After Left Recursion Removal]");
-            grammar.printGrammar();
-
+            grammar.eliminateLeftFactoring();
             grammar.exportToFile(PROCESSED_GRAMMAR);
-            System.out.println("\n[OK] Processed grammar saved to: " + PROCESSED_GRAMMAR);
-
-        } catch (IOException e) {
-            System.out.println("[ERROR] Grammar transformation failed: " + e.getMessage());
+        }
+        catch (IOException e) {
+            System.out.println("Error: Could not transform Grammar.");
             System.exit(1);
         }
 
-        // ════════════════════════════════════════════════════════
-        // STAGE 2: FIRST / FOLLOW Sets + Parse Table Construction
-        //   ProcessedGrammar1.txt → ParseTable.txt
-        // ════════════════════════════════════════════════════════
-        System.out.println("\n" + "=".repeat(60));
-        System.out.println("  STAGE 2: FIRST/FOLLOW + Parse Table");
-        System.out.println("=".repeat(60));
-
+        // Parsing: Stage 2
+        System.out.println("\n--------------------------------");
+        System.out.println("___First Follow & Parse Table___");
+        System.out.println("--------------------------------");
         FirstFollow ff = new FirstFollow(grammar);
         ff.compute();
-        ff.printSets();
-
         ParseTableBuilder builder = new ParseTableBuilder(grammar, ff);
         builder.build();
-        builder.print();
 
         try {
             builder.writeToFile(PARSE_TABLE);
-        } catch (IOException e) {
-            System.out.println("[ERROR] Could not write ParseTable.txt: " + e.getMessage());
+        }
+        catch (IOException e) {
             System.exit(1);
         }
-
         if (!builder.isLL1()) {
-            System.out.println("[ERROR] Grammar is NOT LL(1) — cannot parse.");
-            for (String c : builder.getConflicts()) System.out.println("  " + c);
+            System.out.println("Grammar is NOT LL(1)");
             System.exit(1);
         }
 
-        // ════════════════════════════════════════════════════════
-        // STAGE 3: Load Parse Table
-        // ════════════════════════════════════════════════════════
-        System.out.println("\n" + "=".repeat(60));
-        System.out.println("  STAGE 3: Load Parse Table");
-        System.out.println("=".repeat(60));
-
+        // Lemme just read it
         ParseTableReader tableReader = new ParseTableReader();
         try {
             tableReader.loadTable(PARSE_TABLE);
-            System.out.println("[OK] Parse table loaded from: " + PARSE_TABLE);
-            tableReader.printTable();
-        } catch (IOException e) {
-            System.out.println("[ERROR] Could not load parse table: " + e.getMessage());
+        }
+        catch (IOException e) {
             System.exit(1);
         }
 
-        // ════════════════════════════════════════════════════════
-        // STAGE 4: Tokenize using Lexer
-        // ════════════════════════════════════════════════════════
-        System.out.println("\n" + "=".repeat(60));
-        System.out.println("  STAGE 4: Lexer Tokenization");
-        System.out.println("=".repeat(60));
+        // Tokenization
+        System.out.println("\n----------------");
+        System.out.println("___Tokenizing___");
+        System.out.println("----------------");
 
         ArrayList<Token> tokens = null;
         try {
             ManualScanner ms = new ManualScanner(INPUT_FILE);
             ms.tokenise();
             tokens = ms.Tokens_List;
-            System.out.println("[OK] Lexer tokenized: " + INPUT_FILE);
-            System.out.println("[OK] Token count: " + tokens.size());
-        } catch (Exception e) {
-            System.out.println("[ERROR] Lexer failed: " + e.getMessage());
+        }
+        catch (Exception e) {
             System.exit(1);
         }
 
         if (tokens == null || tokens.isEmpty()) {
-            System.out.println("[ERROR] No tokens produced by lexer.");
+            System.out.println("Empty File");
             System.exit(1);
         }
 
-        // ════════════════════════════════════════════════════════
-        // STAGE 5: LL(1) Parsing
-        //   Tokens → Stack-based parser → Parse Tree
-        // ════════════════════════════════════════════════════════
-        System.out.println("\n" + "=".repeat(60));
-        System.out.println("  STAGE 5: LL(1) Parsing");
-        System.out.println("=".repeat(60));
+        // Parsing: Stage 3
+        System.out.println("\n------------------------");
+        System.out.println("___The Actual Parsing___");
+        System.out.println("------------------------");
 
-        // FOLLOW sets loaded from ParseTable.txt — no hardcoding
         ErrorHandler eh = new ErrorHandler(tableReader.getTerminals());
         eh.setFollowSets(tableReader.getFollowSets());
 
-        Parser parser  = new Parser(tableReader, eh);
-        TreeNode root  = parser.parse(tokens);
+        Parser parser = new Parser(tableReader, eh);
+        TreeNode root = parser.parse(tokens);
 
-        // Print parse tree if accepted
-        if (root != null) {
-            ParseTree tree = new ParseTree(root);
-            tree.print();
-            tree.printPreorder();
-        }
+        /*----------------------------------*/
+        ParseTree tree = new ParseTree(root);
+        tree.print();
+        tree.printPreorder();
 
-        // ── FINAL SUMMARY ─────────────────────────────────────
-        System.out.println("\n" + "=".repeat(60));
-        if (!eh.hasErrors()) {
-            System.out.println("  RESULT: Parsing SUCCESSFUL ✓");
-        } else {
-            System.out.println("  RESULT: Parsing completed with "
-                + eh.getErrorCount() + " error(s).");
-        }
-        System.out.println("=".repeat(60));
-        System.out.println("\n\t\t =================  End of Pipeline  =================\n");
+        System.out.println("Parsing completed with "+ eh.getErrorCount() + " error(s).");
+        System.out.println("\n--------------------");
     }
 }
