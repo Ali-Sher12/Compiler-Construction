@@ -8,31 +8,9 @@ ___First Follow & Parse Table___
 --------------------------------
 [OK] ParseTable.txt written to: /home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt
 
--------------------------
-___Reading Parse Table___
--------------------------
-
 ----------------
 ___Tokenizing___
 ----------------
-SyntaxError: Identifier must begin with an uppercase letter. [int] | line: 1 | Column: 1
-SyntaxError: Identifier must begin with an uppercase letter. [invalidStart] | line: 1 | Column: 5
-SyntaxError: Identifier must have char_size <= 31. [VERYLONGIDENTIFIERNAMEEXCEEDINGTHIRTYCHARACTERS123] | line: 3 | Column: 5
-SyntaxError: Identifier must begin with an uppercase letter. [a] | line: 5 | Column: 8
-SyntaxError: Invalid float. [10] | line: 7 | Column: 9
-SyntaxError: Invalid float. [2] | line: 8 | Column: 11
-SyntaxError: Identifier must begin with an uppercase letter. [e] | line: 8 | Column: 13
-SyntaxError: Invalid Exponent Syntax. line: 9 | Column: 11
-SyntaxError: Invalid char. line: 11 | Column: 10
-SyntaxError: Invalid char. line: 11 | Column: 13
-SyntaxError: Invalid char. line: 12 | Column: 10
-SyntaxError: Identifier must begin with an uppercase letter. [bad] | line: 14 | Column: 51
-SyntaxError: Identifier must begin with an uppercase letter. [string] | line: 14 | Column: 55
-SyntaxError: Unknown Symbol Found. [$] | line: 16 | Column: 1
-SyntaxError: Identifier must begin with an uppercase letter. [illegal] | line: 16 | Column: 2
-SyntaxError: Unknown Symbol Found. [@] | line: 17 | Column: 1
-SyntaxError: Identifier must begin with an uppercase letter. [invalid] | line: 17 | Column: 2
-SyntaxError: Multi-Line comment not closed properly. line: 20
 
 ------------------------
 ___The Actual Parsing___
@@ -41,46 +19,23 @@ ___The Actual Parsing___
 ========== PARSING TRACE ==========
 Step   | Stack (bottom -> top)               | Remaining Input           | Action
 ----------------------------------------------------------------------------------------------------
-1      | $ Expr                              | ; INT = 10 ; 2 ...        | ParseError: No rule for <Expr> on input ';' [;] | line: 1 | Column: 17
-  [Recovery] Skipping token [;]
-  [Recovery] Skipping token [INT]
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token [10]
-  [Recovery] Skipping token [;]
-  [Recovery] Skipping token [2]
-  [Recovery] Skipping token [Float]
-  [Recovery] Skipping token [INT]
-  [Recovery] Skipping token [A]
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token [.]
-  [Recovery] Skipping token [;]
-  [Recovery] Skipping token [FLOAT]
-  [Recovery] Skipping token [B]
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token [.]
-  [Recovery] Skipping token [;]
-  [Recovery] Skipping token [FLOAT]
-  [Recovery] Skipping token [C]
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token [;]
-  [Recovery] Skipping token [CHAR]
-  [Recovery] Skipping token [X]
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token [B]
-  [Recovery] Skipping token [CHAR]
-  [Recovery] Skipping token [Y]
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token [STRING]
-  [Recovery] Skipping token [S1]
-  [Recovery] Skipping token [=]
-  [Recovery] Skipping token ["Unclosed string
-STRING S2 = "]
-  [Recovery] Skipping token [Another]
-  [Recovery] Skipping token [;]
-  [Recovery] Skipping token [;]
-  [Recovery] Skipping token [;]
-  [Recovery] Resuming at [$]
-2      | $                                   | $                         |   Action : ACCEPT ✓
+1      | $ Expr                              | A + + B $                 |   Action : Expand Expr -> Term ExprPrime
+2      | $ ExprPrime Term                    | A + + B $                 |   Action : Expand Term -> Factor TermPrime
+3      | $ ExprPrime TermPrime Factor        | A + + B $                 |   Action : Expand Factor -> id
+4      | $ ExprPrime TermPrime id            | A + + B $                 |   Action : Match 'id'
+5      | $ ExprPrime TermPrime               | + + B $                   |   Action : Expand TermPrime -> epsilon
+6      | $ ExprPrime                         | + + B $                   |   Action : Expand ExprPrime -> + Term ExprPrime
+7      | $ ExprPrime Term +                  | + + B $                   |   Action : Match '+'
+8      | $ ExprPrime Term                    | + B $                     | ParseError: No rule for <Term> on input '+' [+] | line: 1 | Column: 5
+  [Recovery] Popped <Term> — '+' found in FOLLOW set.
+9      | $ ExprPrime                         | + B $                     |   Action : Expand ExprPrime -> + Term ExprPrime
+10     | $ ExprPrime Term +                  | + B $                     |   Action : Match '+'
+11     | $ ExprPrime Term                    | B $                       |   Action : Expand Term -> Factor TermPrime
+12     | $ ExprPrime TermPrime Factor        | B $                       |   Action : Expand Factor -> id
+13     | $ ExprPrime TermPrime id            | B $                       |   Action : Match 'id'
+14     | $ ExprPrime TermPrime               | $                         |   Action : Expand TermPrime -> epsilon
+15     | $ ExprPrime                         | $                         |   Action : Expand ExprPrime -> epsilon
+16     | $                                   | $                         |   Action : ACCEPT ✓
 ----------------------------------------------------------------------------------------------------
 Result: Parsing completed with 1 error(s).
 ====================================
@@ -88,9 +43,26 @@ Result: Parsing completed with 1 error(s).
 
 ========== PARSE TREE ==========
 Expr
+    |-- Term
+    |   |-- Factor
+    |   |   +-- id
+    |   +-- TermPrime
+    |       +-- epsilon
+    +-- ExprPrime
+        |-- +
+        |-- Term
+        +-- ExprPrime
+            |-- +
+            |-- Term
+            |   |-- Factor
+            |   |   +-- id
+            |   +-- TermPrime
+            |       +-- epsilon
+            +-- ExprPrime
+                +-- epsilon
 =================================
 
-Preorder: Expr 
+Preorder: Expr Term Factor id TermPrime epsilon ExprPrime + Term ExprPrime + Term Factor id TermPrime epsilon ExprPrime epsilon 
 Parsing completed with 1 error(s).
 
 --------------------

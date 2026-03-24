@@ -1,30 +1,22 @@
 import java.io.*;
 import java.util.*;
 
-/**
- * ParseTableReader.java
- * Reads ParseTable.txt (written by ParseTableBuilder) into memory.
- * Loads: parsing table, terminals, non-terminals, start symbol, FOLLOW sets.
- */
 public class ParseTableReader {
 
     private HashMap<String, HashMap<String, String[]>> table;
-    private Set<String>  terminals;
-    private Set<String>  nonTerminals;
-    private String       startSymbol;
+    private Set<String> terminals;
+    private Set<String> nonTerminals;
+    private String startSymbol;
 
-    // FOLLOW sets — loaded from file, used by ErrorHandler for panic mode
     private HashMap<String, Set<String>> followSets;
-
     public ParseTableReader() {
-        table        = new HashMap<>();
-        terminals    = new LinkedHashSet<>();
+        table = new HashMap<>();
+        terminals = new LinkedHashSet<>();
         nonTerminals = new LinkedHashSet<>();
-        followSets   = new HashMap<>();
-        startSymbol  = null;
+        followSets = new HashMap<>();
+        startSymbol = null;
     }
 
-    // ── PUBLIC: Load file ────────────────────────────────────
     public void loadTable(String filename) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
         String line;
@@ -35,51 +27,47 @@ public class ParseTableReader {
             if (line.isEmpty() || line.startsWith("#")) continue;
 
             switch (line) {
-                case "TABLE_BEGIN":        section = "TABLE";        continue;
-                case "TABLE_END":          section = "";             continue;
-                case "TERMINALS_BEGIN":    section = "TERMINALS";    continue;
-                case "TERMINALS_END":      section = "";             continue;
+                case "TABLE_BEGIN": section = "TABLE"; continue;
+                case "TABLE_END": section = ""; continue;
+                case "TERMINALS_BEGIN": section = "TERMINALS"; continue;
+                case "TERMINALS_END": section = ""; continue;
                 case "NONTERMINALS_BEGIN": section = "NONTERMINALS"; continue;
-                case "NONTERMINALS_END":   section = "";             continue;
-                case "FOLLOW_BEGIN":       section = "FOLLOW";       continue;
-                case "FOLLOW_END":         section = "";             continue;
+                case "NONTERMINALS_END": section = ""; continue;
+                case "FOLLOW_BEGIN": section = "FOLLOW"; continue;
+                case "FOLLOW_END": section = ""; continue;
             }
 
             switch (section) {
-                case "TABLE":        parseTableEntry(line);   break;
-                case "TERMINALS":    terminals.add(line);     break;
-                case "NONTERMINALS": parseNonTerminal(line);  break;
-                case "FOLLOW":       parseFollowEntry(line);  break;
+                case "TABLE": parseTableEntry(line); break;
+                case "TERMINALS": terminals.add(line); break;
+                case "NONTERMINALS": parseNonTerminal(line); break;
+                case "FOLLOW": parseFollowEntry(line); break;
             }
         }
         br.close();
     }
 
-    // ── Parse one table line: NT,terminal=Symbol1 Symbol2 ───
     private void parseTableEntry(String line) {
         int eqIndex = line.indexOf('=');
         if (eqIndex == -1) return;
 
-        String key        = line.substring(0, eqIndex).trim();
+        String key = line.substring(0, eqIndex).trim();
         String production = line.substring(eqIndex + 1).trim();
         String[] keyParts = key.split(",");
         if (keyParts.length != 2) return;
 
         String nonTerminal = keyParts[0].trim();
-        String terminal    = keyParts[1].trim();
-        String[] symbols   = production.split(" ");
+        String terminal = keyParts[1].trim();
+        String[] symbols = production.split(" ");
 
-        table.computeIfAbsent(nonTerminal, k -> new HashMap<>())
-             .put(terminal, symbols);
+        table.computeIfAbsent(nonTerminal, k -> new HashMap<>()).put(terminal, symbols);
     }
 
-    // ── Track non-terminals; first = start symbol ────────────
     private void parseNonTerminal(String nt) {
         nonTerminals.add(nt);
         if (startSymbol == null) startSymbol = nt;
     }
 
-    // ── Parse one FOLLOW line: NT=sym1 sym2 ... ─────────────
     private void parseFollowEntry(String line) {
         int eqIndex = line.indexOf('=');
         if (eqIndex == -1) return;
@@ -89,24 +77,18 @@ public class ParseTableReader {
         followSets.put(nt, set);
     }
 
-    // ── PUBLIC: Get production M[NT, terminal] ───────────────
     public String[] getProduction(String nonTerminal, String terminal) {
         HashMap<String, String[]> row = table.get(nonTerminal);
         if (row == null) return null;
         return row.get(terminal);
     }
 
-    // ── Type checks ──────────────────────────────────────────
     public boolean isNonTerminal(String symbol) { return nonTerminals.contains(symbol); }
     public boolean isTerminal(String symbol)    { return terminals.contains(symbol); }
-
-    // ── Getters ──────────────────────────────────────────────
     public String              getStartSymbol() { return startSymbol; }
     public Set<String>         getTerminals()   { return terminals; }
     public Set<String>         getNonTerminals(){ return nonTerminals; }
     public HashMap<String, Set<String>> getFollowSets() { return followSets; }
-
-    // ── Debug print ──────────────────────────────────────────
     public void printTable() {
         System.out.println("\n========== LOADED PARSING TABLE ==========");
         for (String nt : nonTerminals) {

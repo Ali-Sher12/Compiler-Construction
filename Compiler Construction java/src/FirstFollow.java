@@ -1,27 +1,21 @@
 import java.util.*;
 
-/**
- * FirstFollow.java
- * Computes FIRST and FOLLOW sets using Grammar.java directly.
- * No GrammarReader needed.
- */
 public class FirstFollow {
 
-    private Grammar grammar;
-    private Set<String> nonTerminals;  // keys of productions map
-    private Set<String> terminals;     // derived: symbols that are not NTs and not epsilon
+    Grammar grammar;
+    Set<String> nonTerminals;  // keys of productions map
+    Set<String> terminals;     // derived: symbols that are not NTs and not epsilon
+    LinkedHashMap<String, LinkedHashSet<String>> first;
+    LinkedHashMap<String, LinkedHashSet<String>> follow;
 
-    private LinkedHashMap<String, LinkedHashSet<String>> first;
-    private LinkedHashMap<String, LinkedHashSet<String>> follow;
-
-    public FirstFollow(Grammar grammar) {
-        this.grammar      = grammar;
+    FirstFollow(Grammar grammar) {
+        this.grammar = grammar;
         this.nonTerminals = grammar.getProductions().keySet();
-        this.terminals    = new LinkedHashSet<>();
-        this.first        = new LinkedHashMap<>();
-        this.follow       = new LinkedHashMap<>();
+        this.terminals = new LinkedHashSet<>();
+        this.first = new LinkedHashMap<>();
+        this.follow = new LinkedHashMap<>();
 
-        // Derive terminals: any symbol that is not a non-terminal and not epsilon
+        // Getting terminals
         for (List<List<String>> alts : grammar.getProductions().values()) {
             for (List<String> alt : alts) {
                 for (String sym : alt) {
@@ -31,21 +25,17 @@ public class FirstFollow {
                 }
             }
         }
-
-        // Initialize empty FIRST and FOLLOW sets for every non-terminal
         for (String nt : nonTerminals) {
             first.put(nt,  new LinkedHashSet<>());
             follow.put(nt, new LinkedHashSet<>());
         }
     }
 
-    // ── PUBLIC: Compute both sets ────────────────────────────
-    public void compute() {
+    void compute() {
         computeFirst();
         computeFollow();
     }
 
-    // ── FIRST SET COMPUTATION (fixed-point iteration) ────────
     private void computeFirst() {
         boolean changed = true;
         while (changed) {
@@ -58,20 +48,11 @@ public class FirstFollow {
         }
     }
 
-    /**
-     * Adds FIRST of a symbol sequence to targetSet.
-     * Returns true if targetSet changed.
-     *
-     * For Y1 Y2 ... Yn:
-     *   - Add FIRST(Yi) - {epsilon}, stop if Yi can't derive epsilon
-     *   - If all Yi derive epsilon, add epsilon
-     */
     private boolean addFirstOfString(List<String> symbols, LinkedHashSet<String> targetSet) {
         boolean changed = false;
         boolean allDeriveEpsilon = true;
 
         for (String sym : symbols) {
-
             if (sym.equals("epsilon")) {
                 changed |= targetSet.add("epsilon");
                 allDeriveEpsilon = true;
@@ -84,7 +65,6 @@ public class FirstFollow {
                 break;
             }
 
-            // Non-terminal: add FIRST(sym) - {epsilon}
             LinkedHashSet<String> firstOfSym = first.get(sym);
             if (firstOfSym != null) {
                 for (String s : firstOfSym) {
@@ -107,9 +87,7 @@ public class FirstFollow {
         return changed;
     }
 
-    // ── FOLLOW SET COMPUTATION (fixed-point iteration) ───────
     private void computeFollow() {
-        // Rule 1: add $ to FOLLOW(start symbol)
         follow.get(grammar.getStartSymbol()).add("$");
 
         boolean changed = true;
@@ -144,37 +122,37 @@ public class FirstFollow {
             }
         }
     }
-
-    // ── PUBLIC: FIRST of an arbitrary string ─────────────────
-    public LinkedHashSet<String> firstOfString(List<String> symbols) {
+    LinkedHashSet<String> firstOfString(List<String> symbols) {
         LinkedHashSet<String> result = new LinkedHashSet<>();
         addFirstOfString(symbols, result);
         return result;
     }
+    boolean isNonTerminal(String s) {
+        return nonTerminals.contains(s);
+    }
+    boolean isTerminal(String s) {
+        return terminals.contains(s);
+    }
 
-    // ── Type helpers (derived from Grammar, no isNT method needed) ──
-    public boolean isNonTerminal(String s) { return nonTerminals.contains(s); }
-    public boolean isTerminal(String s)    { return terminals.contains(s); }
+    LinkedHashMap<String, LinkedHashSet<String>> getFirst() { return first; }
+    LinkedHashMap<String, LinkedHashSet<String>> getFollow() { return follow; }
+    LinkedHashSet<String> getFirst(String nt) {
+        return first.getOrDefault(nt,  new LinkedHashSet<>());
+    }
+    LinkedHashSet<String> getFollow(String nt) {
+        return follow.getOrDefault(nt, new LinkedHashSet<>());
+    }
+    Set<String> getTerminals() { return terminals; }
+    Set<String> getNonTerminals() { return nonTerminals; }
 
-    // ── Getters ──────────────────────────────────────────────
-    public LinkedHashMap<String, LinkedHashSet<String>> getFirst()       { return first; }
-    public LinkedHashMap<String, LinkedHashSet<String>> getFollow()      { return follow; }
-    public LinkedHashSet<String>                        getFirst(String nt)  { return first.getOrDefault(nt,  new LinkedHashSet<>()); }
-    public LinkedHashSet<String>                        getFollow(String nt) { return follow.getOrDefault(nt, new LinkedHashSet<>()); }
-    public Set<String>                                  getTerminals()    { return terminals; }
-    public Set<String>                                  getNonTerminals() { return nonTerminals; }
-
-    // ── Print sets ───────────────────────────────────────────
-    public void printSets() {
-        System.out.println("===== FIRST SETS =====");
+    void printSets() {
+        System.out.println("First:");
         for (String nt : nonTerminals) {
             System.out.printf("  FIRST(%-15s) = { %s }%n", nt, String.join(", ", first.get(nt)));
         }
-        System.out.println();
-        System.out.println("===== FOLLOW SETS =====");
+        System.out.println("Follow:");
         for (String nt : nonTerminals) {
             System.out.printf("  FOLLOW(%-15s) = { %s }%n", nt, String.join(", ", follow.get(nt)));
         }
-        System.out.println();
     }
 }

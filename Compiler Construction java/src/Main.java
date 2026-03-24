@@ -7,7 +7,7 @@ class Main {
     static String RAW_GRAMMAR = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/RawGrammar.txt";
     static String PROCESSED_GRAMMAR= "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ProcessedGrammar1.txt";
     static String PARSE_TABLE = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseTable.txt";
-    static String INPUT_FILE = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/test4.lang";
+    static String INPUT_FILE = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/test2.lang";
     static String OUTPUT_FILE = "/home/jarvis2026/Documents/Repos/compiler construction/Compiler Construction java/tests/ParseResults.txt";
 
     public static void main(String[] args) {
@@ -95,10 +95,11 @@ class Main {
         Parser parser = new Parser(tableReader, eh);
         TreeNode root = parser.parse(tokens);
 
-        /*----------------------------------*/
-        ParseTree tree = new ParseTree(root);
-        tree.print();
-        tree.printPreorder();
+        if(root != null){
+            ParseTree tree = new ParseTree(root);
+            tree.print();
+            tree.printPreorder();
+        }
 
         System.out.println("Parsing completed with "+ eh.getErrorCount() + " error(s).");
         System.out.println("\n--------------------");

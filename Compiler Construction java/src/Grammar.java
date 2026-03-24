@@ -2,23 +2,17 @@ import java.io.*;
 import java.util.*;
 
 public class Grammar {
-    // Keeps non-terminals in order of appearance
     private LinkedHashMap<String, List<List<String>>> productions;
     private String startSymbol;
-
     public Grammar() {
         this.productions = new LinkedHashMap<>();
     }
-
     public String getStartSymbol() {
         return startSymbol;
     }
-
     public LinkedHashMap<String, List<List<String>>> getProductions() {
         return productions;
     }
-
-    // Task 1.1: Input CFG
     public void loadFromFile(String filepath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filepath));
         String line;
@@ -26,7 +20,6 @@ public class Grammar {
             line = line.trim();
             if (line.isEmpty() || line.startsWith("#")) continue;
 
-            // Format: NonTerminal -> prod1 | prod2
             String[] parts = line.split("->");
             if (parts.length != 2) continue;
 
@@ -48,7 +41,6 @@ public class Grammar {
         reader.close();
     }
 
-    // Task 1.2: Left Factoring
     public void eliminateLeftFactoring() {
         boolean changed = true;
         while (changed) {
@@ -58,8 +50,6 @@ public class Grammar {
             for (Map.Entry<String, List<List<String>>> entry : productions.entrySet()) {
                 String nonTerminal = entry.getKey();
                 List<List<String>> rules = entry.getValue();
-
-                // Find the longest common prefix among rules
                 int maxPrefixLen = 0;
                 List<String> bestPrefix = null;
                 List<List<String>> bestInvolved = null;
@@ -71,7 +61,6 @@ public class Grammar {
 
                         List<String> prefix = getCommonPrefix(r1, r2);
                         if (!prefix.isEmpty()) {
-                            // Find all rules sharing this prefix
                             List<List<String>> involved = new ArrayList<>();
                             for (List<String> r : rules) {
                                 if (r.size() >= prefix.size() && r.subList(0, prefix.size()).equals(prefix)) {
@@ -105,15 +94,11 @@ public class Grammar {
                             newRules.add(r);
                         }
                     }
-                    
                     List<String> factoredRule = new ArrayList<>(bestPrefix);
                     factoredRule.add(newNonTerminal);
                     newRules.add(factoredRule);
-
                     newProductions.put(nonTerminal, newRules);
                     newProductions.put(newNonTerminal, newPrimeRules);
-                    
-                    // Add the remaining undisturbed non-terminals map later down
                 } else {
                     newProductions.put(nonTerminal, rules);
                 }
@@ -135,7 +120,6 @@ public class Grammar {
         return prefix;
     }
 
-    // Task 1.3: Left Recursion Removal
     public void eliminateLeftRecursion() {
         List<String> nonTerms = new ArrayList<>(productions.keySet());
 
@@ -219,10 +203,6 @@ public class Grammar {
             newAPrimeRules.add(newRule);
         }
         newAPrimeRules.add(new ArrayList<>(Arrays.asList("epsilon")));
-
-        // Preserve order by creating a new map or modifying in place
-        // Modifying in place works since LinkedHashMap maintains insertion order for existing keys,
-        // and A_prime is appended.
         LinkedHashMap<String, List<List<String>>> updatedProductions = new LinkedHashMap<>();
         for (Map.Entry<String, List<List<String>>> entry : productions.entrySet()) {
             if (entry.getKey().equals(A)) {

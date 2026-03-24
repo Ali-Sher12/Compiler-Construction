@@ -90,12 +90,13 @@ public class ErrorHandler {
         Set<String> follow = followSets.getOrDefault(nonTerminal, new HashSet<>());
         String currentTerminal = mapTypeToTerminal(tokens.get(tokenIndex[0]));
 
+        // We js pop the problematic non-terminal
         if (follow.contains(currentTerminal)) {
             Recovery_Pop(nonTerminal, currentTerminal);
             stack.pop();
             return true;
         }
-
+        // We skip tokens here
         while (tokenIndex[0] < tokens.size() - 1) {
             Token t = tokens.get(tokenIndex[0]);
             Recovery_Skip(t.Lexeme);
